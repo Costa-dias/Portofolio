@@ -2,7 +2,7 @@
 
 Site pessoal, estático, desenvolvido para apresentar minha trajetória profissional e os projetos que venho construindo na transição de carreira para Análise de Sistemas e Processos.
 
-🔗 **Site publicado:** [[em breve — link do Render](https://portfolio-qrb3.onrender.com/)]
+🔗 **Site publicado:** [[https://portfolio-qrb3.onrender.com/](https://portfolio-qrb3.onrender.com/)]
 🔗 **LinkedIn:** [linkedin.com/in/joao-vitor-tec](https://www.linkedin.com/in/joao-vitor-tec/)
 🔗 **GitHub:** [github.com/Costa-dias](https://github.com/Costa-dias)
 
