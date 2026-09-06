@@ -286,17 +286,17 @@ const TRAJETORIA: Milestone[] = [
   {
     period: '2020 — 2022',
     title: 'Santa Casa de Santos',
-    description: 'Atendimento e recepção, primeiro contato com rotina institucional e processos internos.',
+    description: 'Atendimento e recepção, primeiro contato com rotina institucional e processos internos na area de saúde.',
   },
   {
     period: '2022 — 2025',
     title: 'Plano Santa Saúde',
-    description: 'Recepção e suporte técnico, com promoção interna para a equipe de TI.',
+    description: 'Recepção e rotinas admnistrativas, com promoção interna para a equipe de TI.',
   },
   {
     period: '2025 — atual',
-    title: 'Suporte de TI N1/N2 — Hospital Infantil Gonzaga',
-    description: 'Suporte técnico, redes e administração de acessos no sistema MV Soul.',
+    title: 'Suporte de TI N1/N2 — Plano Santa Saude (Hospital Infantil Gonzaga)',
+    description: 'Suporte técnico, redes, hardware/software e suporte ao sistema MV Soul.',
   },
   {
     period: '2026 — 2028',
