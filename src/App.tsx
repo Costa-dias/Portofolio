@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
-import { Github, Linkedin, ArrowUpRight, Terminal, Code2, Workflow, Cpu } from 'lucide-react';
+import { Github, Linkedin, ArrowUpRight, Terminal, Code2, Workflow, Cpu, Wifi, ShieldCheck } from 'lucide-react';
 
 const GITHUB_URL = 'https://github.com/Costa-dias';
 const LINKEDIN_URL = 'https://www.linkedin.com/in/joao-vitor-tec/';
 
 const NAV_LINKS = [
   { id: 'sobre', label: 'Sobre' },
+  { id: 'trajetoria', label: 'Trajetória' },
   { id: 'projetos', label: 'Projetos' },
   { id: 'contato', label: 'Contato' },
 ] as const;
@@ -163,6 +164,7 @@ export default function App() {
         className="relative z-10 mx-auto w-full max-w-2xl px-6 pb-32 pt-28 sm:pt-36 lg:px-0"
       >
         <Intro />
+        <Trajetoria />
         <Projects />
         <Contact />
       </main>
@@ -257,17 +259,78 @@ function Intro() {
           </p>
         </div>
 
-        <div className="mt-10 flex flex-wrap gap-3">
+       <div className="mt-10 flex flex-wrap gap-3">
           <Badge icon={<Terminal className="h-4 w-4" />} label="Suporte N1/N2" />
-          <Badge icon={<Workflow className="h-4 w-4" />} label="Processos" />
+          <Badge icon={<Workflow className="h-4 w-4" />} label="Análise de Sistemas e Processos" />
+          <Badge icon={<Wifi className="h-4 w-4" />} label="Redes" />
           <Badge icon={<Code2 className="h-4 w-4" />} label="JavaScript · Python" />
+          <Badge icon={<ShieldCheck className="h-4 w-4" />} label="Segurança da Informação" />
           <Badge icon={<Cpu className="h-4 w-4" />} label="Ferramentas de IA" />
-        </div>
+      </div>
       </div>
     </section>
   );
 }
+type Milestone = {
+  period: string;
+  title: string;
+  description: string;
+};
 
+const TRAJETORIA: Milestone[] = [
+  {
+    period: '2017 — 2018',
+    title: 'Exército Brasileiro & Técnico em TI (Senai)',
+    description: 'Serviço militar e curso técnico de manutenção de hardware e software — a base da minha entrada em tecnologia.',
+  },
+  {
+    period: '2020 — 2022',
+    title: 'Santa Casa de Santos',
+    description: 'Atendimento e recepção, primeiro contato com rotina institucional e processos internos.',
+  },
+  {
+    period: '2022 — 2025',
+    title: 'Plano Santa Saúde',
+    description: 'Recepção e suporte técnico, com promoção interna para a equipe de TI.',
+  },
+  {
+    period: '2025 — atual',
+    title: 'Suporte de TI N1/N2 — Hospital Infantil Gonzaga',
+    description: 'Suporte técnico, redes e administração de acessos no sistema MV Soul.',
+  },
+  {
+    period: '2026 — 2028',
+    title: 'Análise e Desenvolvimento de Sistemas — Anhanguera',
+    description: 'Graduação em andamento, formalizando a transição para Análise de Sistemas e Processos.',
+  },
+];
+
+function Trajetoria() {
+  const { ref, shown } = useReveal<HTMLDivElement>();
+  return (
+    <section id="trajetoria" aria-labelledby="trajetoria-title" className="mt-28 scroll-mt-24 sm:mt-36">
+      <SectionHeading index="02." title="Trajetória" />
+      <h3 id="trajetoria-title" className="sr-only">Trajetória</h3>
+
+      <ol
+        ref={ref}
+        className={`mt-8 space-y-6 transition-all duration-700 ease-out ${shown ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'}`}
+      >
+        {TRAJETORIA.map((m) => (
+          <li key={m.title} className="flex gap-4 sm:gap-6">
+            <span className="mt-1 whitespace-nowrap font-mono text-xs text-[--accent-bright] sm:text-sm">
+              {m.period}
+            </span>
+            <div className="border-l border-[--line] pl-4 sm:pl-6">
+              <h4 className="font-semibold text-[--text]">{m.title}</h4>
+              <p className="mt-1 text-sm leading-relaxed text-[#d6cde4] sm:text-base">{m.description}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </section>
+  );
+}
 function Badge({ icon, label }: { icon: React.ReactNode; label: string }) {
   return (
     <span className="inline-flex items-center gap-2 rounded-full border border-[--line] bg-[--bg-soft] px-3.5 py-1.5 text-sm font-medium text-[--muted] transition-colors duration-200 hover:border-[--accent]/60 hover:text-[--text]">
@@ -287,7 +350,7 @@ function Projects() {
       aria-labelledby="projetos-title"
       className="mt-28 scroll-mt-24 sm:mt-36"
     >
-      <SectionHeading index="02." title="Projetos" />
+      <SectionHeading index="03." title="Projetos" />
       <h3 id="projetos-title" className="sr-only">
         Projetos
       </h3>
@@ -364,7 +427,7 @@ function Contact() {
         ref={ref}
         className={`transition-all duration-700 ease-out ${shown ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'}`}
       >
-        <p className="mb-4 font-mono text-sm text-[--accent-bright]">03.</p>
+        <p className="mb-4 font-mono text-sm text-[--accent-bright]">04.</p>
         <h2 id="contato-title" className="text-3xl font-bold tracking-tight sm:text-5xl">
           Vamos conversar.
         </h2>
