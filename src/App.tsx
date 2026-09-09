@@ -40,6 +40,13 @@ const PROJECTS: Project[] = [
     href: 'https://fraudlens-code.onrender.com/',
     tags: ['React', 'TypeScript', 'Vite', 'Tailwind CSS'],
   },
+    {
+    title: 'Dashboard Finanças — Controle Financeiro Pessoal',
+    description:
+      'Aplicativo web para controle financeiro pessoal, pensado para substituir o caderno de anotações com uso rápido pelo celular. Lançamentos de receitas e despesas, recorrências e compras parceladas, orçamento por categoria e dashboard com KPIs e gráficos — tudo salvo localmente no navegador, protegido por PIN e criptografia AES-256, sem backend ou cadastro.',
+    href: 'https://dashboard-financas-rfv6.onrender.com/',
+    tags: ['React', 'TypeScript', 'Vite', 'Tailwind CSS'],
+  },
 ];
 
 function useReveal<T extends HTMLElement>() {
