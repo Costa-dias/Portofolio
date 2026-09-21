@@ -286,10 +286,16 @@ function Intro() {
   );
 }
 
+type MilestoneGroup = {
+  label: string;
+  items: string[];
+};
+
 type Milestone = {
   period: string;
   title: string;
   description: string;
+  groups?: MilestoneGroup[];
 };
 
 const TRAJETORIA: Milestone[] = [
@@ -317,6 +323,17 @@ const TRAJETORIA: Milestone[] = [
     period: '2026 — 2028',
     title: 'Análise e Desenvolvimento de Sistemas — Anhanguera',
     description: 'Graduação em andamento, formalizando a transição para Análise de Sistemas e Processos.',
+    groups: [
+      {
+        label: 'Formações complementares',
+        items: [
+          'Administração de Banco de Dados — Fundação Bradesco, 2026',
+          'Cyber Segurança — Hackers do Bem, 2024',
+          'LGPD — Fundação Bradesco, 2023',
+          'Tecnologia da Informação e Comunicação — Fundação Bradesco, 2024',
+        ],
+      },
+    ],
   },
 ];
 
@@ -339,6 +356,17 @@ function Trajetoria() {
             <div className="border-l border-[--line] pl-4 sm:pl-6">
               <h4 className="font-semibold text-[--text]">{m.title}</h4>
               <p className="mt-1 text-sm leading-relaxed text-[#d6cde4] sm:text-base">{m.description}</p>
+              
+              {m.groups?.map((group) => (
+                <div key={group.label} className="mt-3">
+                  <span className="text-xs font-semibold text-[--accent-bright]">{group.label}:</span>
+                  <ul className="mt-1 space-y-1 text-xs text-[#d6cde4]">
+                    {group.items.map((item) => (
+                      <li key={item}>• {item}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
             </div>
           </li>
         ))}
@@ -359,7 +387,7 @@ function Badge({ icon, label }: { icon: React.ReactNode; label: string }) {
 }
 
 function Projects() {
-  const { ref, shown } = useReveal<HTMLDivElement>();
+  const { ref, shown } = useReveal<HTMLUListElement>();
   return (
     <section
       id="projetos"
@@ -371,14 +399,14 @@ function Projects() {
         Projetos
       </h3>
 
-      <div
+      <ul
         ref={ref}
         className={`mt-8 space-y-5 transition-all duration-700 ease-out ${shown ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'}`}
       >
         {PROJECTS.map((p, i) => (
           <ProjectCard key={p.title} project={p} index={i} />
         ))}
-      </div>
+      </ul>
     </section>
   );
 }
@@ -448,8 +476,7 @@ function Contact() {
           Vamos conversar.
         </h2>
         <p className="mt-5 max-w-xl text-base leading-relaxed text-[#d6cde4] sm:text-lg">
-          Aberto a novas oportunidades em análise de sistemas/desenvolvimento e dados. Todo
-          feedback é bem-vindo!
+          Quem vive o suporte no dia a dia enxerga onde o processo trava. Quero levar essa visão para a análise de sistemas e processos, e já venho praticando isso em projetos reais. Se sua equipe procura alguém assim, entre em contato comigo.
         </p>
 
         <div className="mt-8">
