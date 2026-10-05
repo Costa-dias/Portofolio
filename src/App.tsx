@@ -54,6 +54,13 @@ const PROJECTS: Project[] = [
     href: 'https://radar-de-golpes-hub.xadoondias.workers.dev/',
     tags: ['React', 'TanStack Start', 'TypeScript', 'Tailwind CSS'],
   },
+  {
+    title: 'TurnoExtra — Agenda de serviços',
+    description:
+      'Aplicativo web para anotar e controlar plantões, serviços, horas extras e contratos: calendário mensal, valores, pagamentos, relatórios e backup. Feito para quem presta serviços fora do horário habitual de trabalho, como profissionais de saúde, cooperados e freelancers.',
+    href: 'https://gestao-de-plantao.onrender.com/',
+    tags: ['TypeScript', 'Vite', 'Lucide', 'Tailwind CSS', 'Web Crypto API', 'IndexedDB'],
+},
 ];
 
 function useReveal<T extends HTMLElement>() {
