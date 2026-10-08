@@ -1,5 +1,16 @@
+```tsx
 import { useEffect, useRef, useState } from 'react';
-import { Github, Linkedin, ArrowUpRight, Terminal, Code2, Workflow, Cpu, Wifi, ShieldCheck } from 'lucide-react';
+import {
+  Github,
+  Linkedin,
+  ArrowUpRight,
+  Terminal,
+  Code2,
+  Workflow,
+  Cpu,
+  Wifi,
+  ShieldCheck,
+} from 'lucide-react';
 
 const GITHUB_URL = 'https://github.com/Costa-dias';
 const LINKEDIN_URL = 'https://www.linkedin.com/in/joao-vitor-tec/';
@@ -20,59 +31,62 @@ type Project = {
 
 const PROJECTS: Project[] = [
   {
-    title: 'Honey Bee — Catálogo Digital Interativo',
-    description:
-      'Catálogo web para estabelecimentos de café da manhã, doces e panificação. Navegação simples para o cliente, cardápio digital com fotos e preços, e canal direto de pedidos via WhatsApp.',
-    href: 'https://honey-bee-catalogo.onrender.com/',
-    tags: ['HTML5', 'CSS3', 'JavaScript'],
-  },
-  {
-    title: 'Plataforma para Corretor de Imóveis',
-    description:
-      'Plataforma full-stack para exibição, busca e gestão de catálogo imobiliário. Listagem interativa com filtros por categoria e localização, fotos, descrições e contato direto com o corretor.',
-    href: 'https://corretor-imoveis-frontend.onrender.com/',
-    tags: ['JavaScript', 'HTML5', 'CSS3', 'Python'],
-  },
-  {
     title: 'FraudLens — Segurança antes do clique',
     description:
-      'Ferramenta anônima para verificação de links, prints e QR Codes suspeitos. Analisa URLs, lê prints e QR codes via câmera, emite veredito claro e gera denúncia anônima — sem cadastro, com histórico salvo apenas no navegador.',
+      'Ferramenta anônima para verificação de links, prints e QR Codes suspeitos. Analisa URLs, lê prints e QR Codes via câmera, apresenta um veredito claro e permite gerar denúncia anônima — sem cadastro, com histórico salvo apenas no navegador.',
     href: 'https://fraudlens-code.onrender.com/',
     tags: ['React', 'TypeScript', 'Vite', 'Tailwind CSS'],
   },
   {
     title: 'Dashboard Finanças — Controle Financeiro Pessoal',
     description:
-      'Aplicativo web para controle financeiro pessoal, pensado para substituir o caderno de anotações com uso rápido pelo celular. Lançamentos de receitas e despesas, recorrências e compras parceladas, orçamento por categoria e dashboard com KPIs e gráficos — tudo salvo localmente no navegador, protegido por PIN e criptografia AES-256, sem backend ou cadastro.',
+      'Aplicativo web para controle financeiro pessoal, pensado para substituir o caderno de anotações com uso rápido pelo celular. Possui lançamentos de receitas e despesas, recorrências, compras parceladas, orçamento por categoria e dashboard com KPIs e gráficos — tudo salvo localmente no navegador, protegido por PIN e criptografia AES-256, sem backend ou cadastro.',
     href: 'https://dashboard-financas-rfv6.onrender.com/',
     tags: ['React', 'TypeScript', 'Vite', 'Tailwind CSS'],
   },
   {
+    title: 'TurnoExtra — Agenda de serviços',
+    description:
+      'Aplicativo web para organizar e controlar plantões, serviços, horas extras e contratos. Conta com calendário mensal, valores, pagamentos, relatórios e backup. Desenvolvido para profissionais que prestam serviços fora do horário habitual de trabalho, como profissionais de saúde, cooperados e freelancers.',
+    href: 'https://gestao-de-plantao.onrender.com/',
+    tags: ['TypeScript', 'Vite', 'Lucide', 'Tailwind CSS', 'Web Crypto API', 'IndexedDB'],
+  },
+  {
+    title: 'Plataforma para Corretor de Imóveis',
+    description:
+      'Plataforma full-stack para exibição, busca e gestão de catálogo imobiliário. Possui listagem interativa com filtros por categoria e localização, fotos, descrições e contato direto com o corretor.',
+    href: 'https://corretor-imoveis-frontend.onrender.com/',
+    tags: ['JavaScript', 'HTML5', 'CSS3', 'Python'],
+  },
+  {
     title: 'HUB — Radar de Golpes',
     description:
-      'Plataforma educativa para identificação e prevenção contra fraudes digitais no Brasil. Apresenta funcionamento dos golpes por categoria, sinais de alerta e quiz interativo — sem cadastro, com histórico salvo no navegador. Complemento educativo ao FraudLens.',
+      'Plataforma educativa para identificação e prevenção contra fraudes digitais no Brasil. Apresenta o funcionamento dos golpes por categoria, sinais de alerta e quiz interativo — sem cadastro, com histórico salvo no navegador. Complemento educativo ao FraudLens.',
     href: 'https://radar-de-golpes-hub.xadoondias.workers.dev/',
     tags: ['React', 'TanStack Start', 'TypeScript', 'Tailwind CSS'],
   },
   {
-    title: 'TurnoExtra — Agenda de serviços',
+    title: 'Honey Bee — Catálogo Digital Interativo',
     description:
-      'Aplicativo web para anotar e controlar plantões, serviços, horas extras e contratos: calendário mensal, valores, pagamentos, relatórios e backup. Feito para quem presta serviços fora do horário habitual de trabalho, como profissionais de saúde, cooperados e freelancers.',
-    href: 'https://gestao-de-plantao.onrender.com/',
-    tags: ['TypeScript', 'Vite', 'Lucide', 'Tailwind CSS', 'Web Crypto API', 'IndexedDB'],
-},
+      'Catálogo web para estabelecimentos de café da manhã, doces e panificação. Oferece navegação simples, cardápio digital com fotos e preços e canal direto de pedidos via WhatsApp.',
+    href: 'https://honey-bee-catalogo.onrender.com/',
+    tags: ['HTML5', 'CSS3', 'JavaScript'],
+  },
 ];
 
 function useReveal<T extends HTMLElement>() {
   const ref = useRef<T>(null);
   const [shown, setShown] = useState(false);
+
   useEffect(() => {
     const el = ref.current;
+
     if (!el) return;
+
     const obs = new IntersectionObserver(
       (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
             setShown(true);
             obs.disconnect();
           }
@@ -80,32 +94,47 @@ function useReveal<T extends HTMLElement>() {
       },
       { threshold: 0.15 }
     );
+
     obs.observe(el);
+
     return () => obs.disconnect();
   }, []);
+
   return { ref, shown };
 }
 
 function useActiveSection(ids: readonly string[]) {
   const [active, setActive] = useState<string>(ids[0]);
+
   useEffect(() => {
     const observers: IntersectionObserver[] = [];
+
     ids.forEach((id) => {
       const el = document.getElementById(id);
+
       if (!el) return;
+
       const obs = new IntersectionObserver(
         (entries) => {
-          entries.forEach((e) => {
-            if (e.isIntersecting) setActive(id);
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setActive(id);
+            }
           });
         },
-        { rootMargin: '-45% 0px -50% 0px', threshold: 0 }
+        {
+          rootMargin: '-45% 0px -50% 0px',
+          threshold: 0,
+        }
       );
+
       obs.observe(el);
       observers.push(obs);
     });
-    return () => observers.forEach((o) => o.disconnect());
+
+    return () => observers.forEach((observer) => observer.disconnect());
   }, [ids]);
+
   return active;
 }
 
@@ -118,18 +147,19 @@ function SocialLinks({ className = '' }: { className?: string }) {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="GitHub de João Vitor"
-          className="group flex h-12 w-12 items-center justify-center rounded-lg border border-[--line] text-[#cfc7da] opacity-80 transition-all duration-200 hover:-translate-y-1 hover:opacity-100 hover:border-[#cfc7da]/60 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-[--accent] focus-visible:outline-offset-2"
+          className="group flex h-12 w-12 items-center justify-center rounded-lg border border-[--line] text-[#cfc7da] opacity-80 transition-all duration-200 hover:-translate-y-1 hover:border-[#cfc7da]/60 hover:text-white hover:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[--accent] focus-visible:outline-offset-2"
         >
           <Github className="h-[23px] w-[23px]" aria-hidden="true" />
         </a>
       </li>
+
       <li>
         <a
           href={LINKEDIN_URL}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="LinkedIn de João Vitor"
-          className="group flex h-12 w-12 items-center justify-center rounded-lg border border-[--line] text-[#cfc7da] opacity-80 transition-all duration-200 hover:-translate-y-1 hover:opacity-100 hover:border-[#cfc7da]/60 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-[--accent] focus-visible:outline-offset-2"
+          className="group flex h-12 w-12 items-center justify-center rounded-lg border border-[--line] text-[#cfc7da] opacity-80 transition-all duration-200 hover:-translate-y-1 hover:border-[#cfc7da]/60 hover:text-white hover:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[--accent] focus-visible:outline-offset-2"
         >
           <Linkedin className="h-[23px] w-[23px]" aria-hidden="true" />
         </a>
@@ -138,12 +168,25 @@ function SocialLinks({ className = '' }: { className?: string }) {
   );
 }
 
-function SectionHeading({ index, title }: { index: string; title: string }) {
+function SectionHeading({
+  index,
+  title,
+}: {
+  index: string;
+  title: string;
+}) {
   return (
     <h2 className="flex items-center gap-4 text-2xl font-semibold tracking-tight sm:text-3xl">
-      <span className="font-mono text-base font-normal text-[--accent-bright]">{index}</span>
+      <span className="font-mono text-base font-normal text-[--accent-bright]">
+        {index}
+      </span>
+
       <span className="text-[--text]">{title}</span>
-      <span className="ml-1 h-px flex-1 bg-[--line]" aria-hidden="true" />
+
+      <span
+        className="ml-1 h-px flex-1 bg-[--line]"
+        aria-hidden="true"
+      />
     </h2>
   );
 }
@@ -151,7 +194,6 @@ function SectionHeading({ index, title }: { index: string; title: string }) {
 export default function App() {
   return (
     <div className="relative min-h-screen bg-[--bg] text-[--text]">
-      {/* ambient glow */}
       <div
         aria-hidden="true"
         className="pointer-events-none fixed inset-0 z-0 opacity-80"
@@ -163,9 +205,9 @@ export default function App() {
 
       <Navbar />
 
-      {/* fixed social rail — bottom-left (desktop) */}
       <aside className="fixed bottom-0 left-6 z-20 hidden flex-col items-center gap-5 lg:flex">
         <SocialLinks className="flex-col" />
+
         <span
           className="w-px bg-gradient-to-b from-[--line] to-transparent"
           style={{ height: '5rem' }}
@@ -175,7 +217,7 @@ export default function App() {
 
       <a
         href="#conteudo"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-20 focus:z-50 focus:rounded-md focus:bg-[--accent] focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white"
+        className="sr-only focus:absolute focus:left-4 focus:top-20 focus:z-50 focus:rounded-md focus:bg-[--accent] focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white focus:not-sr-only"
       >
         Pular para o conteúdo
       </a>
@@ -196,13 +238,20 @@ export default function App() {
 }
 
 function Navbar() {
-  const active = useActiveSection(NAV_LINKS.map((l) => l.id));
+  const active = useActiveSection(NAV_LINKS.map((link) => link.id));
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 12);
+    };
+
     onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
+
+    window.addEventListener('scroll', onScroll, {
+      passive: true,
+    });
+
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
@@ -214,7 +263,10 @@ function Navbar() {
           : 'border-b border-transparent bg-transparent'
       }`}
     >
-      <nav className="mx-auto flex h-16 max-w-5xl items-center justify-between px-6" aria-label="Navegação principal">
+      <nav
+        className="mx-auto flex h-16 max-w-5xl items-center justify-between px-6"
+        aria-label="Navegação principal"
+      >
         <a
           href="#sobre"
           className="flex h-9 w-9 items-center justify-center rounded-lg border border-[--accent]/60 font-mono text-sm font-bold text-[--accent-bright] transition-all duration-200 hover:bg-[--accent-soft] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[--accent] focus-visible:outline-offset-2"
@@ -224,7 +276,7 @@ function Navbar() {
         </a>
 
         <ul className="flex items-center gap-1">
-          {NAV_LINKS.map((link, i) => (
+          {NAV_LINKS.map((link, index) => (
             <li key={link.id}>
               <a
                 href={`#${link.id}`}
@@ -235,8 +287,9 @@ function Navbar() {
                 }`}
               >
                 <span className="font-mono text-xs text-[--accent]">
-                  0{i + 1}.
+                  0{index + 1}.
                 </span>
+
                 <span>{link.label}</span>
               </a>
             </li>
@@ -249,44 +302,108 @@ function Navbar() {
 
 function Intro() {
   const { ref, shown } = useReveal<HTMLDivElement>();
+
   return (
-    <section id="sobre" aria-labelledby="sobre-title" className="scroll-mt-24">
+    <section
+      id="sobre"
+      aria-labelledby="sobre-title"
+      className="scroll-mt-24"
+    >
       <SectionHeading index="01." title="Sobre mim" />
+
       <h3 id="sobre-title" className="sr-only">
         Sobre mim
       </h3>
 
       <div
         ref={ref}
-        className={`mt-8 transition-all duration-700 ease-out ${shown ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'}`}
+        className={`mt-8 transition-all duration-700 ease-out ${
+          shown
+            ? 'translate-y-0 opacity-100'
+            : 'translate-y-6 opacity-0'
+        }`}
       >
-        <p className="mb-2 font-mono text-sm text-[--accent-bright]">Olá, meu nome é</p>
-        <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">João Vitor.</h1>
-        <p className="mt-3 text-2xl font-semibold text-[--muted] sm:text-4xl">
-          TI &amp; Análise de Sistemas.
+        <p className="mb-2 font-mono text-sm text-[--accent-bright]">
+          Bem-vindo ao meu portfólio.
         </p>
 
-        <div className="mt-8 space-y-5 text-base leading-relaxed text-[#d6cde4] sm:text-lg">
-          <p>
-            Profissional de TI em transição de carreira para{' '}
-            <span className="text-[--text]">Análise de Sistemas e Processos</span>. Comecei na
-            recepção da Santa Casa de Santos e fui promovido à equipe de TI do Plano Santa Saúde,
-            onde atuo hoje com suporte N1/N2, redes e administração de acessos no sistema MV Soul.
-          </p>
-          <p>
-            Fora da rotina de suporte, uso JavaScript, Python e ferramentas de IA para prototipar
-            soluções web e automatizar processos — é onde coloco a mão na massa pra entender
-            arquitetura de software e conectar necessidade de usuário a solução técnica.
-          </p>
+        <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
+          João Vitor.
+        </h1>
+
+        <p className="mt-3 text-2xl font-semibold text-[--muted] sm:text-4xl">
+          Profissional de TI | Suporte | Infraestrutura | Análise de Sistemas
+        </p>
+
+        <div className="mt-8 space-y-6 text-base leading-relaxed text-[#d6cde4] sm:text-lg">
+          <div>
+            <h3 className="mb-2 text-lg font-semibold text-[--accent-bright]">
+              Quem é João Vitor?
+            </h3>
+
+            <p>
+              Profissional de TI focado na resolução de problemas, atuando
+              desde o suporte técnico até o desenvolvimento de soluções.
+            </p>
+          </div>
+
+          <div>
+            <h3 className="mb-2 text-lg font-semibold text-[--accent-bright]">
+              O que ele sabe fazer?
+            </h3>
+
+            <p>
+              Atuo com{' '}
+              <strong className="text-[--text]">
+                suporte N1/N2 presencial e remoto
+              </strong>
+              , redes, administração de acessos e permissões e suporte ao
+              sistema{' '}
+              <strong className="text-[--text]">MV Soul</strong>.
+              Também atuo com{' '}
+              <strong className="text-[--text]">
+                desenvolvimento web com IA aplicada
+              </strong>
+              , análise de requisitos e processos e{' '}
+              <strong className="text-[--text]">
+                automação de processos
+              </strong>
+              , buscando sempre soluções mais eficientes para as necessidades
+              do negócio.
+            </p>
+          </div>
         </div>
 
         <div className="mt-10 flex flex-wrap gap-3">
-          <Badge icon={<Terminal className="h-4 w-4" />} label="Suporte N1/N2" />
-          <Badge icon={<Workflow className="h-4 w-4" />} label="Análise de Sistemas e Processos" />
-          <Badge icon={<Wifi className="h-4 w-4" />} label="Redes" />
-          <Badge icon={<Code2 className="h-4 w-4" />} label="JavaScript · Python" />
-          <Badge icon={<ShieldCheck className="h-4 w-4" />} label="Segurança da Informação" />
-          <Badge icon={<Cpu className="h-4 w-4" />} label="Ferramentas de IA" />
+          <Badge
+            icon={<Terminal className="h-4 w-4" />}
+            label="Suporte N1/N2"
+          />
+
+          <Badge
+            icon={<Workflow className="h-4 w-4" />}
+            label="Análise de Sistemas e Processos"
+          />
+
+          <Badge
+            icon={<Wifi className="h-4 w-4" />}
+            label="Redes"
+          />
+
+          <Badge
+            icon={<Code2 className="h-4 w-4" />}
+            label="JavaScript · Python"
+          />
+
+          <Badge
+            icon={<ShieldCheck className="h-4 w-4" />}
+            label="Segurança da Informação"
+          />
+
+          <Badge
+            icon={<Cpu className="h-4 w-4" />}
+            label="Ferramentas de IA"
+          />
         </div>
       </div>
     </section>
@@ -308,34 +425,45 @@ type Milestone = {
 const TRAJETORIA: Milestone[] = [
   {
     period: '2017 — 2018',
-    title: 'Exército Brasileiro & Técnico em TI (Senai)',
-    description: 'Serviço militar e curso técnico de manutenção de hardware e software — a base da minha entrada em tecnologia.',
+    title: 'Exército Brasileiro',
+    description:
+      'Serviço militar, desenvolvendo disciplina, responsabilidade, trabalho em equipe e capacidade de atuação sob pressão.',
+  },
+  {
+    period: '2017 — 2018',
+    title: 'Técnico em Manutenção de Computadores — SENAI',
+    description:
+      'Formação técnica em manutenção de hardware e software, estabelecendo a base da minha entrada na área de tecnologia.',
   },
   {
     period: '2020 — 2022',
     title: 'Santa Casa de Santos',
-    description: 'Atendimento e recepção, primeiro contato com rotina institucional e processos internos na area de saúde.',
+    description:
+      'Atendimento e recepção, com contato direto com rotina institucional, usuários e processos internos na área da saúde.',
   },
   {
     period: '2022 — 2025',
     title: 'Plano Santa Saúde',
-    description: 'Recepção e rotinas admnistrativas, com promoção interna para a equipe de TI.',
+    description:
+      'Atuação em recepção e rotinas administrativas, com evolução profissional e promoção interna para a equipe de TI.',
   },
   {
     period: '2025 — atual',
-    title: 'Suporte de TI N1/N2 — Plano Santa Saude (Hospital Infantil Gonzaga)',
-    description: 'Suporte técnico, redes, hardware/software e suporte ao sistema MV Soul.',
+    title: 'Suporte de TI N1/N2 — Plano Santa Saúde',
+    description:
+      'Atuação com suporte técnico presencial e remoto, redes, hardware, software, administração de acessos e suporte ao sistema hospitalar MV Soul.',
   },
   {
     period: '2026 — 2028',
     title: 'Análise e Desenvolvimento de Sistemas — Anhanguera',
-    description: 'Graduação em andamento, formalizando a transição para Análise de Sistemas e Processos.',
+    description:
+      'Graduação em andamento, ampliando conhecimentos em desenvolvimento, análise de sistemas, processos e tecnologia aplicada aos negócios.',
     groups: [
       {
         label: 'Formações complementares',
         items: [
           'Administração de Banco de Dados — Fundação Bradesco, 2026',
-          'Cyber Segurança — Hackers do Bem, 2024',
+          'Cybersecurity — Hackers do Bem, 2024',
           'LGPD — Fundação Bradesco, 2023',
           'Tecnologia da Informação e Comunicação — Fundação Bradesco, 2024',
         ],
@@ -345,28 +473,52 @@ const TRAJETORIA: Milestone[] = [
 ];
 
 function Trajetoria() {
-  const { ref, shown } = useReveal<HTMLDivElement>();
+  const { ref, shown } = useReveal<HTMLOListElement>();
+
   return (
-    <section id="trajetoria" aria-labelledby="trajetoria-title" className="mt-28 scroll-mt-24 sm:mt-36">
+    <section
+      id="trajetoria"
+      aria-labelledby="trajetoria-title"
+      className="mt-28 scroll-mt-24 sm:mt-36"
+    >
       <SectionHeading index="02." title="Trajetória" />
-      <h3 id="trajetoria-title" className="sr-only">Trajetória</h3>
+
+      <h3 id="trajetoria-title" className="sr-only">
+        Trajetória profissional e acadêmica
+      </h3>
 
       <ol
         ref={ref}
-        className={`mt-8 space-y-6 transition-all duration-700 ease-out ${shown ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'}`}
+        className={`mt-8 space-y-6 transition-all duration-700 ease-out ${
+          shown
+            ? 'translate-y-0 opacity-100'
+            : 'translate-y-6 opacity-0'
+        }`}
       >
-        {TRAJETORIA.map((m) => (
-          <li key={m.title} className="flex gap-4 sm:gap-6">
+        {TRAJETORIA.map((milestone) => (
+          <li
+            key={`${milestone.period}-${milestone.title}`}
+            className="flex gap-4 sm:gap-6"
+          >
             <span className="mt-1 whitespace-nowrap font-mono text-xs text-[--accent-bright] sm:text-sm">
-              {m.period}
+              {milestone.period}
             </span>
+
             <div className="border-l border-[--line] pl-4 sm:pl-6">
-              <h4 className="font-semibold text-[--text]">{m.title}</h4>
-              <p className="mt-1 text-sm leading-relaxed text-[#d6cde4] sm:text-base">{m.description}</p>
-              
-              {m.groups?.map((group) => (
+              <h4 className="font-semibold text-[--text]">
+                {milestone.title}
+              </h4>
+
+              <p className="mt-1 text-sm leading-relaxed text-[#d6cde4] sm:text-base">
+                {milestone.description}
+              </p>
+
+              {milestone.groups?.map((group) => (
                 <div key={group.label} className="mt-3">
-                  <span className="text-xs font-semibold text-[--accent-bright]">{group.label}:</span>
+                  <span className="text-xs font-semibold text-[--accent-bright]">
+                    {group.label}:
+                  </span>
+
                   <ul className="mt-1 space-y-1 text-xs text-[#d6cde4]">
                     {group.items.map((item) => (
                       <li key={item}>• {item}</li>
@@ -382,12 +534,22 @@ function Trajetoria() {
   );
 }
 
-function Badge({ icon, label }: { icon: React.ReactNode; label: string }) {
+function Badge({
+  icon,
+  label,
+}: {
+  icon: React.ReactNode;
+  label: string;
+}) {
   return (
     <span className="inline-flex items-center gap-2 rounded-full border border-[--line] bg-[--bg-soft] px-3.5 py-1.5 text-sm font-medium text-[--muted] transition-colors duration-200 hover:border-[--accent]/60 hover:text-[--text]">
-      <span className="text-[--accent-bright]" aria-hidden="true">
+      <span
+        className="text-[--accent-bright]"
+        aria-hidden="true"
+      >
         {icon}
       </span>
+
       {label}
     </span>
   );
@@ -395,6 +557,7 @@ function Badge({ icon, label }: { icon: React.ReactNode; label: string }) {
 
 function Projects() {
   const { ref, shown } = useReveal<HTMLUListElement>();
+
   return (
     <section
       id="projetos"
@@ -402,62 +565,90 @@ function Projects() {
       className="mt-28 scroll-mt-24 sm:mt-36"
     >
       <SectionHeading index="03." title="Projetos" />
+
       <h3 id="projetos-title" className="sr-only">
-        Projetos
+        Projetos desenvolvidos
       </h3>
 
       <ul
         ref={ref}
-        className={`mt-8 space-y-5 transition-all duration-700 ease-out ${shown ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'}`}
+        className={`mt-8 space-y-5 transition-all duration-700 ease-out ${
+          shown
+            ? 'translate-y-0 opacity-100'
+            : 'translate-y-6 opacity-0'
+        }`}
       >
-        {PROJECTS.map((p, i) => (
-          <ProjectCard key={p.title} project={p} index={i} />
+        {PROJECTS.map((project, index) => (
+          <ProjectCard
+            key={project.title}
+            project={project}
+            index={index}
+          />
         ))}
       </ul>
     </section>
   );
 }
 
-function ProjectCard({ project, index }: { project: Project; index: number }) {
+function ProjectCard({
+  project,
+  index,
+}: {
+  project: Project;
+  index: number;
+}) {
   const { ref, shown } = useReveal<HTMLLIElement>();
+
   return (
     <li
       ref={ref}
-      className={`group list-none rounded-xl border border-[--line] bg-[--panel]/60 p-5 transition-[transform,box-shadow,border-color,background-color,opacity] duration-300 ease-out hover:-translate-y-2 hover:border-[--accent]/70 hover:bg-[--panel] hover:shadow-[0_16px_40px_-12px_rgba(194,24,91,0.45)] sm:p-6 ${shown ? 'opacity-100' : 'opacity-0'}`}
-      style={{ transitionDelay: `${index * 90}ms` }}
+      className={`group list-none rounded-xl border border-[--line] bg-[--panel]/60 p-5 transition-[transform,box-shadow,border-color,background-color,opacity] duration-300 ease-out hover:-translate-y-2 hover:border-[--accent]/70 hover:bg-[--panel] hover:shadow-[0_16px_40px_-12px_rgba(194,24,91,0.45)] sm:p-6 ${
+        shown ? 'opacity-100' : 'opacity-0'
+      }`}
+      style={{
+        transitionDelay: `${index * 90}ms`,
+      }}
     >
       <a
         href={project.href}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex flex-col gap-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[--accent] focus-visible:outline-offset-4 focus-visible:rounded-xl"
+        className="flex flex-col gap-3 rounded-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-[--accent] focus-visible:outline-offset-4"
         aria-label={`Acessar o projeto ${project.title}`}
       >
         <div className="flex items-start justify-between gap-4">
           <h4 className="text-lg font-semibold text-[--text] transition-colors duration-200 group-hover:text-[--accent-bright] sm:text-xl">
             {project.title}
           </h4>
+
           <ArrowUpRight
             className="mt-1 h-5 w-5 shrink-0 text-[--dim] transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[--accent-bright]"
             aria-hidden="true"
           />
         </div>
+
         <p className="text-sm leading-relaxed text-[#d6cde4] sm:text-base">
           {project.description}
         </p>
+
         <div className="mt-1 flex items-center gap-2 font-mono text-xs text-[--accent-bright]">
           <span aria-hidden="true">🔗</span>
+
           <span className="truncate transition-colors group-hover:underline">
             {project.href.replace(/^https?:\/\//, '')}
           </span>
         </div>
-        <ul className="mt-1 flex flex-wrap gap-2" aria-label="Tecnologias">
-          {project.tags.map((t) => (
+
+        <ul
+          className="mt-1 flex flex-wrap gap-2"
+          aria-label={`Tecnologias utilizadas em ${project.title}`}
+        >
+          {project.tags.map((tag) => (
             <li
-              key={t}
+              key={tag}
               className="rounded-md border border-[--line] bg-[--bg-soft] px-2.5 py-1 font-mono text-xs text-[--muted] transition-colors duration-200 group-hover:border-[--accent]/40 group-hover:text-[--text]"
             >
-              {t}
+              {tag}
             </li>
           ))}
         </ul>
@@ -468,6 +659,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
 function Contact() {
   const { ref, shown } = useReveal<HTMLDivElement>();
+
   return (
     <section
       id="contato"
@@ -476,14 +668,28 @@ function Contact() {
     >
       <div
         ref={ref}
-        className={`transition-all duration-700 ease-out ${shown ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'}`}
+        className={`transition-all duration-700 ease-out ${
+          shown
+            ? 'translate-y-0 opacity-100'
+            : 'translate-y-6 opacity-0'
+        }`}
       >
-        <p className="mb-4 font-mono text-sm text-[--accent-bright]">04.</p>
-        <h2 id="contato-title" className="text-3xl font-bold tracking-tight sm:text-5xl">
+        <p className="mb-4 font-mono text-sm text-[--accent-bright]">
+          04.
+        </p>
+
+        <h2
+          id="contato-title"
+          className="text-3xl font-bold tracking-tight sm:text-5xl"
+        >
           Vamos conversar.
         </h2>
+
         <p className="mt-5 max-w-xl text-base leading-relaxed text-[#d6cde4] sm:text-lg">
-          Quem vive o suporte no dia a dia enxerga onde o processo trava. Quero levar essa visão para a análise de sistemas e processos, e já venho praticando isso em projetos reais. Se sua equipe procura alguém assim, entre em contato comigo.
+          Quem vive o suporte no dia a dia enxerga onde o processo trava.
+          Quero levar essa visão para a análise de sistemas e processos, e
+          já venho praticando isso em projetos reais. Se sua equipe procura
+          alguém com essa visão, entre em contato comigo.
         </p>
 
         <div className="mt-8">
@@ -501,8 +707,10 @@ function Footer() {
         <p className="font-mono text-xs text-[--dim]">
           Desenvolvido &amp; mantido por João Vitor
         </p>
+
         <SocialLinks className="lg:hidden" />
       </div>
     </footer>
   );
 }
+```
