@@ -1,5 +1,4 @@
-```tsx
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import {
   Github,
   Linkedin,
@@ -49,7 +48,14 @@ const PROJECTS: Project[] = [
     description:
       'Aplicativo web para organizar e controlar plantões, serviços, horas extras e contratos. Conta com calendário mensal, valores, pagamentos, relatórios e backup. Desenvolvido para profissionais que prestam serviços fora do horário habitual de trabalho, como profissionais de saúde, cooperados e freelancers.',
     href: 'https://gestao-de-plantao.onrender.com/',
-    tags: ['TypeScript', 'Vite', 'Lucide', 'Tailwind CSS', 'Web Crypto API', 'IndexedDB'],
+    tags: [
+      'TypeScript',
+      'Vite',
+      'Lucide',
+      'Tailwind CSS',
+      'Web Crypto API',
+      'IndexedDB',
+    ],
   },
   {
     title: 'Plataforma para Corretor de Imóveis',
@@ -132,7 +138,9 @@ function useActiveSection(ids: readonly string[]) {
       observers.push(obs);
     });
 
-    return () => observers.forEach((observer) => observer.disconnect());
+    return () => {
+      observers.forEach((observer) => observer.disconnect());
+    };
   }, [ids]);
 
   return active;
@@ -140,7 +148,7 @@ function useActiveSection(ids: readonly string[]) {
 
 function SocialLinks({ className = '' }: { className?: string }) {
   return (
-    <ul className={`flex items-center gap-3 ${className}`}>
+    <ul className={'flex items-center gap-3 ' + className}>
       <li>
         <a
           href={GITHUB_URL}
@@ -149,7 +157,10 @@ function SocialLinks({ className = '' }: { className?: string }) {
           aria-label="GitHub de João Vitor"
           className="group flex h-12 w-12 items-center justify-center rounded-lg border border-[--line] text-[#cfc7da] opacity-80 transition-all duration-200 hover:-translate-y-1 hover:border-[#cfc7da]/60 hover:text-white hover:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[--accent] focus-visible:outline-offset-2"
         >
-          <Github className="h-[23px] w-[23px]" aria-hidden="true" />
+          <Github
+            className="h-[23px] w-[23px]"
+            aria-hidden="true"
+          />
         </a>
       </li>
 
@@ -161,7 +172,10 @@ function SocialLinks({ className = '' }: { className?: string }) {
           aria-label="LinkedIn de João Vitor"
           className="group flex h-12 w-12 items-center justify-center rounded-lg border border-[--line] text-[#cfc7da] opacity-80 transition-all duration-200 hover:-translate-y-1 hover:border-[#cfc7da]/60 hover:text-white hover:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[--accent] focus-visible:outline-offset-2"
         >
-          <Linkedin className="h-[23px] w-[23px]" aria-hidden="true" />
+          <Linkedin
+            className="h-[23px] w-[23px]"
+            aria-hidden="true"
+          />
         </a>
       </li>
     </ul>
@@ -252,7 +266,9 @@ function Navbar() {
       passive: true,
     });
 
-    return () => window.removeEventListener('scroll', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+    };
   }, []);
 
   return (
@@ -358,8 +374,7 @@ function Intro() {
                 suporte N1/N2 presencial e remoto
               </strong>
               , redes, administração de acessos e permissões e suporte ao
-              sistema{' '}
-              <strong className="text-[--text]">MV Soul</strong>.
+              sistema <strong className="text-[--text]">MV Soul</strong>.
               Também atuo com{' '}
               <strong className="text-[--text]">
                 desenvolvimento web com IA aplicada
@@ -538,7 +553,7 @@ function Badge({
   icon,
   label,
 }: {
-  icon: React.ReactNode;
+  icon: ReactNode;
   label: string;
 }) {
   return (
@@ -713,4 +728,3 @@ function Footer() {
     </footer>
   );
 }
-```
