@@ -1,149 +1,158 @@
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import {
-  Github,
-  Linkedin,
   ArrowUpRight,
-  Terminal,
-  Code2,
-  Workflow,
-  Cpu,
-  Wifi,
+  BriefcaseBusiness,
+  Building2,
+  CalendarDays,
+  CheckCircle2,
+  ChevronDown,
+  Coffee,
+  Database,
+  Github,
+  GraduationCap,
+  Instagram,
+  Linkedin,
+  LockKeyhole,
+  Mail,
+  MapPin,
+  Menu,
+  Network,
+  Radar,
+  Rocket,
   ShieldCheck,
+  Sparkles,
+  UserRound,
+  WalletCards,
+  X,
 } from 'lucide-react';
 
 const GITHUB_URL = 'https://github.com/Costa-dias';
 const LINKEDIN_URL = 'https://www.linkedin.com/in/joao-vitor-tec/';
 
 const NAV_LINKS = [
-  { id: 'sobre', label: 'Sobre' },
-  { id: 'trajetoria', label: 'Trajetória' },
-  { id: 'projetos', label: 'Projetos' },
-  { id: 'contato', label: 'Contato' },
-] as const;
+  { label: 'Sobre', href: '#sobre' },
+  { label: 'Trajetória', href: '#trajetoria' },
+  { label: 'Projetos', href: '#projetos' },
+  { label: 'Contato', href: '#contato' },
+];
 
 type Project = {
   title: string;
   description: string;
-  href: string;
+  url: string;
+  icon: ReactNode;
   tags: string[];
 };
 
 const PROJECTS: Project[] = [
   {
-    title: 'FraudLens — Segurança antes do clique',
+    title: 'FraudLens',
     description:
-      'Ferramenta anônima para verificação de links, prints e QR Codes suspeitos. Analisa URLs, lê prints e QR Codes via câmera, apresenta um veredito claro e permite gerar denúncia anônima — sem cadastro, com histórico salvo apenas no navegador.',
-    href: 'https://fraudlens-code.onrender.com/',
-    tags: ['React', 'TypeScript', 'Vite', 'Tailwind CSS'],
+      'Plataforma criada para ajudar usuários a identificar possíveis golpes e fraudes antes de interagir com links, imagens, QR Codes e outros conteúdos suspeitos.',
+    url: 'https://fraudlens-code.onrender.com/',
+    icon: <ShieldCheck size={22} />,
+    tags: ['Segurança', 'IA aplicada', 'Web', 'API'],
   },
   {
-    title: 'Dashboard Finanças — Controle Financeiro Pessoal',
+    title: 'Dashboard Finanças',
     description:
-      'Aplicativo web para controle financeiro pessoal, pensado para substituir o caderno de anotações com uso rápido pelo celular. Possui lançamentos de receitas e despesas, recorrências, compras parceladas, orçamento por categoria e dashboard com KPIs e gráficos — tudo salvo localmente no navegador, protegido por PIN e criptografia AES-256, sem backend ou cadastro.',
-    href: 'https://dashboard-financas-rfv6.onrender.com/',
-    tags: ['React', 'TypeScript', 'Vite', 'Tailwind CSS'],
+      'Aplicação para controle financeiro pessoal, com dashboard, categorias, gráficos, lançamentos e recursos voltados à privacidade dos dados.',
+    url: 'https://dashboard-financas-rfv6.onrender.com/',
+    icon: <WalletCards size={22} />,
+    tags: ['React', 'TypeScript', 'Dashboard', 'Segurança'],
   },
   {
-    title: 'TurnoExtra — Agenda de serviços',
+    title: 'TurnoExtra',
     description:
-      'Aplicativo web para organizar e controlar plantões, serviços, horas extras e contratos. Conta com calendário mensal, valores, pagamentos, relatórios e backup. Desenvolvido para profissionais que prestam serviços fora do horário habitual de trabalho, como profissionais de saúde, cooperados e freelancers.',
-    href: 'https://gestao-de-plantao.onrender.com/',
-    tags: [
-      'TypeScript',
-      'Vite',
-      'Lucide',
-      'Tailwind CSS',
-      'Web Crypto API',
-      'IndexedDB',
-    ],
+      'Sistema para organização e gerenciamento de serviços e plantões, pensado para facilitar o controle de escalas e informações operacionais.',
+    url: 'https://gestao-de-plantao.onrender.com/',
+    icon: <CalendarDays size={22} />,
+    tags: ['Web', 'Gestão', 'Automação', 'Supabase'],
   },
   {
     title: 'Plataforma para Corretor de Imóveis',
     description:
-      'Plataforma full-stack para exibição, busca e gestão de catálogo imobiliário. Possui listagem interativa com filtros por categoria e localização, fotos, descrições e contato direto com o corretor.',
-    href: 'https://corretor-imoveis-frontend.onrender.com/',
-    tags: ['JavaScript', 'HTML5', 'CSS3', 'Python'],
+      'Solução web voltada para apresentação e organização de imóveis, facilitando a divulgação e o contato com potenciais clientes.',
+    url: 'https://corretor-imoveis-frontend.onrender.com/',
+    icon: <Building2 size={22} />,
+    tags: ['Web', 'Frontend', 'UX', 'Negócios'],
   },
   {
     title: 'HUB — Radar de Golpes',
     description:
-      'Plataforma educativa para identificação e prevenção contra fraudes digitais no Brasil. Apresenta o funcionamento dos golpes por categoria, sinais de alerta e quiz interativo — sem cadastro, com histórico salvo no navegador. Complemento educativo ao FraudLens.',
-    href: 'https://radar-de-golpes-hub.xadoondias.workers.dev/',
-    tags: ['React', 'TanStack Start', 'TypeScript', 'Tailwind CSS'],
+      'Projeto focado em centralizar informações e referências relacionadas a golpes, fraudes e segurança digital.',
+    url: 'https://radar-de-golpes-hub.xadoondias.workers.dev/',
+    icon: <Radar size={22} />,
+    tags: ['Cybersecurity', 'Informação', 'Web'],
   },
   {
-    title: 'Honey Bee — Catálogo Digital Interativo',
+    title: 'Honey Bee',
     description:
-      'Catálogo web para estabelecimentos de café da manhã, doces e panificação. Oferece navegação simples, cardápio digital com fotos e preços e canal direto de pedidos via WhatsApp.',
-    href: 'https://honey-bee-catalogo.onrender.com/',
-    tags: ['HTML5', 'CSS3', 'JavaScript'],
+      'Catálogo digital interativo desenvolvido para apresentar produtos de forma simples, visual e acessível ao cliente.',
+    url: 'https://honey-bee-catalogo.onrender.com/',
+    icon: <Coffee size={22} />,
+    tags: ['Web', 'Catálogo', 'Frontend'],
   },
 ];
 
-function useReveal<T extends HTMLElement>() {
-  const ref = useRef<T>(null);
-  const [shown, setShown] = useState(false);
-
+function useReveal() {
   useEffect(() => {
-    const el = ref.current;
+    const elements = document.querySelectorAll('[data-reveal]');
 
-    if (!el) return;
+    if (!elements.length) return;
 
-    const obs = new IntersectionObserver(
+    const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setShown(true);
-            obs.disconnect();
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.15 }
+      {
+        threshold: 0.12,
+      }
     );
 
-    obs.observe(el);
+    elements.forEach((element) => observer.observe(element));
 
-    return () => obs.disconnect();
+    return () => observer.disconnect();
   }, []);
-
-  return { ref, shown };
 }
 
-function useActiveSection(ids: readonly string[]) {
-  const [active, setActive] = useState<string>(ids[0]);
+function useActiveSection() {
+  const [activeSection, setActiveSection] = useState('sobre');
 
   useEffect(() => {
-    const observers: IntersectionObserver[] = [];
+    const sections = NAV_LINKS.map((item) =>
+      document.querySelector(item.href)
+    ).filter(Boolean) as Element[];
 
-    ids.forEach((id) => {
-      const el = document.getElementById(id);
+    if (!sections.length) return;
 
-      if (!el) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
 
-      const obs = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              setActive(id);
-            }
-          });
-        },
-        {
-          rootMargin: '-45% 0px -50% 0px',
-          threshold: 0,
+        if (visible[0]) {
+          setActiveSection(visible[0].target.id);
         }
-      );
+      },
+      {
+        rootMargin: '-30% 0px -55% 0px',
+        threshold: [0.1, 0.25, 0.5],
+      }
+    );
 
-      obs.observe(el);
-      observers.push(obs);
-    });
+    sections.forEach((section) => observer.observe(section));
 
-    return () => {
-      observers.forEach((observer) => observer.disconnect());
-    };
-  }, [ids]);
+    return () => observer.disconnect();
+  }, []);
 
-  return active;
+  return activeSection;
 }
 
 function SocialLinks({ className = '' }: { className?: string }) {
@@ -153,14 +162,11 @@ function SocialLinks({ className = '' }: { className?: string }) {
         <a
           href={GITHUB_URL}
           target="_blank"
-          rel="noopener noreferrer"
-          aria-label="GitHub de João Vitor"
-          className="group flex h-12 w-12 items-center justify-center rounded-lg border border-[--line] text-[#cfc7da] opacity-80 transition-all duration-200 hover:-translate-y-1 hover:border-[#cfc7da]/60 hover:text-white hover:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[--accent] focus-visible:outline-offset-2"
+          rel="noreferrer"
+          aria-label="GitHub"
+          className="group flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] text-slate-400 transition hover:border-cyan-400/40 hover:bg-cyan-400/10 hover:text-cyan-300"
         >
-          <Github
-            className="h-[23px] w-[23px]"
-            aria-hidden="true"
-          />
+          <Github size={18} />
         </a>
       </li>
 
@@ -168,14 +174,11 @@ function SocialLinks({ className = '' }: { className?: string }) {
         <a
           href={LINKEDIN_URL}
           target="_blank"
-          rel="noopener noreferrer"
-          aria-label="LinkedIn de João Vitor"
-          className="group flex h-12 w-12 items-center justify-center rounded-lg border border-[--line] text-[#cfc7da] opacity-80 transition-all duration-200 hover:-translate-y-1 hover:border-[#cfc7da]/60 hover:text-white hover:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[--accent] focus-visible:outline-offset-2"
+          rel="noreferrer"
+          aria-label="LinkedIn"
+          className="group flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] text-slate-400 transition hover:border-cyan-400/40 hover:bg-cyan-400/10 hover:text-cyan-300"
         >
-          <Linkedin
-            className="h-[23px] w-[23px]"
-            aria-hidden="true"
-          />
+          <Linkedin size={18} />
         </a>
       </li>
     </ul>
@@ -183,64 +186,93 @@ function SocialLinks({ className = '' }: { className?: string }) {
 }
 
 function SectionHeading({
-  index,
+  eyebrow,
   title,
+  description,
 }: {
-  index: string;
+  eyebrow: string;
   title: string;
+  description?: string;
 }) {
   return (
-    <h2 className="flex items-center gap-4 text-2xl font-semibold tracking-tight sm:text-3xl">
-      <span className="font-mono text-base font-normal text-[--accent-bright]">
-        {index}
+    <div data-reveal className="mb-12 max-w-3xl reveal">
+      <span className="mb-3 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-cyan-300">
+        <span className="h-px w-7 bg-cyan-400" />
+        {eyebrow}
       </span>
 
-      <span className="text-[--text]">{title}</span>
+      <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+        {title}
+      </h2>
 
-      <span
-        className="ml-1 h-px flex-1 bg-[--line]"
-        aria-hidden="true"
-      />
-    </h2>
+      {description && (
+        <p className="mt-4 text-base leading-7 text-slate-400">
+          {description}
+        </p>
+      )}
+    </div>
   );
 }
 
-export default function App() {
+function App() {
+  useReveal();
+
   return (
-    <div className="relative min-h-screen bg-[--bg] text-[--text]">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none fixed inset-0 z-0 opacity-80"
-        style={{
-          background:
-            'radial-gradient(60% 40% at 80% 0%, rgba(194,24,91,0.12), transparent 70%), radial-gradient(50% 35% at 10% 20%, rgba(168,85,247,0.07), transparent 70%)',
-        }}
-      />
+    <div className="min-h-screen bg-[#070b12] text-slate-200 selection:bg-cyan-400/30 selection:text-white">
+      <style>{`
+        html {
+          scroll-behavior: smooth;
+        }
+
+        body {
+          margin: 0;
+          background: #070b12;
+        }
+
+        .reveal {
+          opacity: 0;
+          transform: translateY(24px);
+          transition:
+            opacity 700ms ease,
+            transform 700ms ease;
+        }
+
+        .reveal.is-visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .grid-background {
+          background-image:
+            linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+          background-size: 42px 42px;
+        }
+
+        .glow {
+          box-shadow:
+            0 0 0 1px rgba(34,211,238,0.08),
+            0 0 60px rgba(34,211,238,0.06);
+        }
+
+        .text-gradient {
+          background: linear-gradient(
+            90deg,
+            #67e8f9,
+            #22d3ee,
+            #a5f3fc
+          );
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+        }
+      `}</style>
 
       <Navbar />
 
-      <aside className="fixed bottom-0 left-6 z-20 hidden flex-col items-center gap-5 lg:flex">
-        <SocialLinks className="flex-col" />
-
-        <span
-          className="w-px bg-gradient-to-b from-[--line] to-transparent"
-          style={{ height: '5rem' }}
-          aria-hidden="true"
-        />
-      </aside>
-
-      <a
-        href="#conteudo"
-        className="sr-only focus:absolute focus:left-4 focus:top-20 focus:z-50 focus:rounded-md focus:bg-[--accent] focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white focus:not-sr-only"
-      >
-        Pular para o conteúdo
-      </a>
-
-      <main
-        id="conteudo"
-        className="relative z-10 mx-auto w-full max-w-2xl px-6 pb-32 pt-28 sm:pt-36 lg:px-0"
-      >
+      <main>
         <Intro />
+        <Sobre />
         <Trajetoria />
         <Projects />
         <Contact />
@@ -252,355 +284,470 @@ export default function App() {
 }
 
 function Navbar() {
-  const active = useActiveSection(NAV_LINKS.map((link) => link.id));
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => {
-      setScrolled(window.scrollY > 12);
-    };
-
-    onScroll();
-
-    window.addEventListener('scroll', onScroll, {
-      passive: true,
-    });
-
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-    };
-  }, []);
+  const activeSection = useActiveSection();
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-30 transition-colors duration-300 ${
-        scrolled
-          ? 'border-b border-[--line] bg-[--bg]/80 backdrop-blur-md'
-          : 'border-b border-transparent bg-transparent'
-      }`}
-    >
-      <nav
-        className="mx-auto flex h-16 max-w-5xl items-center justify-between px-6"
-        aria-label="Navegação principal"
-      >
+    <header className="fixed left-0 right-0 top-0 z-50 border-b border-white/5 bg-[#070b12]/80 backdrop-blur-xl">
+      <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-5 lg:px-8">
         <a
-          href="#sobre"
-          className="flex h-9 w-9 items-center justify-center rounded-lg border border-[--accent]/60 font-mono text-sm font-bold text-[--accent-bright] transition-all duration-200 hover:bg-[--accent-soft] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[--accent] focus-visible:outline-offset-2"
-          aria-label="Início — João Vitor"
+          href="#inicio"
+          className="flex items-center gap-3"
+          onClick={() => setMobileOpen(false)}
         >
-          JV
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-cyan-400/20 bg-cyan-400/10 text-cyan-300">
+            <Rocket size={19} />
+          </div>
+
+          <div>
+            <p className="text-sm font-bold text-white">João Vitor</p>
+            <p className="text-[11px] text-slate-500">Profissional de TI</p>
+          </div>
         </a>
 
-        <ul className="flex items-center gap-1">
-          {NAV_LINKS.map((link, index) => (
-            <li key={link.id}>
-              <a
-                href={`#${link.id}`}
-                className={`group relative flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[--accent] focus-visible:outline-offset-2 ${
-                  active === link.id
-                    ? 'text-[--accent-bright]'
-                    : 'text-[--muted] hover:text-[--text]'
-                }`}
-              >
-                <span className="font-mono text-xs text-[--accent]">
-                  0{index + 1}.
-                </span>
+        <nav className="hidden md:block">
+          <ul className="flex items-center gap-7">
+            {NAV_LINKS.map((item) => {
+              const id = item.href.replace('#', '');
+              const active = activeSection === id;
 
-                <span>{link.label}</span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
+              return (
+                <li key={item.href}>
+                  <a
+                    href={item.href}
+                    className={
+                      'relative text-sm transition ' +
+                      (active
+                        ? 'text-cyan-300'
+                        : 'text-slate-400 hover:text-white')
+                    }
+                  >
+                    {item.label}
+
+                    {active && (
+                      <span className="absolute -bottom-2 left-0 h-px w-full bg-cyan-400" />
+                    )}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+
+        <div className="hidden md:block">
+          <SocialLinks />
+        </div>
+
+        <button
+          type="button"
+          aria-label={mobileOpen ? 'Fechar menu' : 'Abrir menu'}
+          onClick={() => setMobileOpen(!mobileOpen)}
+          className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 text-slate-300 md:hidden"
+        >
+          {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+        </button>
+      </div>
+
+      {mobileOpen && (
+        <div className="border-t border-white/5 bg-[#070b12]/95 px-5 py-5 md:hidden">
+          <nav>
+            <ul className="space-y-2">
+              {NAV_LINKS.map((item) => (
+                <li key={item.href}>
+                  <a
+                    href={item.href}
+                    onClick={() => setMobileOpen(false)}
+                    className="block rounded-lg px-3 py-3 text-sm text-slate-300 transition hover:bg-white/5 hover:text-cyan-300"
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <SocialLinks className="mt-4" />
+        </div>
+      )}
     </header>
   );
 }
 
 function Intro() {
-  const { ref, shown } = useReveal<HTMLDivElement>();
-
   return (
     <section
-      id="sobre"
-      aria-labelledby="sobre-title"
-      className="scroll-mt-24"
+      id="inicio"
+      className="grid-background relative flex min-h-screen items-center overflow-hidden pt-20"
     >
-      <SectionHeading index="01." title="Sobre mim" />
+      <div className="absolute left-1/2 top-1/4 h-72 w-72 -translate-x-1/2 rounded-full bg-cyan-400/10 blur-[120px]" />
 
-      <h3 id="sobre-title" className="sr-only">
-        Sobre mim
-      </h3>
-
-      <div
-        ref={ref}
-        className={`mt-8 transition-all duration-700 ease-out ${
-          shown
-            ? 'translate-y-0 opacity-100'
-            : 'translate-y-6 opacity-0'
-        }`}
-      >
-        <p className="mb-2 font-mono text-sm text-[--accent-bright]">
-          Bem-vindo ao meu portfólio.
-        </p>
-
-        <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
-          João Vitor.
-        </h1>
-
-        <p className="mt-3 text-2xl font-semibold text-[--muted] sm:text-4xl">
-          Profissional de TI | Suporte | Infraestrutura | Análise de Sistemas
-        </p>
-
-        <div className="mt-8 space-y-6 text-base leading-relaxed text-[#d6cde4] sm:text-lg">
-          <div>
-            <h3 className="mb-2 text-lg font-semibold text-[--accent-bright]">
-              Quem é João Vitor?
-            </h3>
-
-            <p>
-              Profissional de TI focado na resolução de problemas, atuando
-              desde o suporte técnico até o desenvolvimento de soluções.
-            </p>
+      <div className="mx-auto w-full max-w-6xl px-5 py-20 lg:px-8">
+        <div className="max-w-4xl">
+          <div
+            data-reveal
+            className="reveal mb-6 inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/5 px-4 py-2 text-xs font-medium text-cyan-300"
+          >
+            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-cyan-300" />
+            Profissional de TI • Santos/SP
           </div>
 
-          <div>
-            <h3 className="mb-2 text-lg font-semibold text-[--accent-bright]">
-              O que ele sabe fazer?
-            </h3>
+          <h1
+            data-reveal
+            className="reveal text-5xl font-bold leading-[1.05] tracking-tight text-white sm:text-6xl lg:text-7xl"
+          >
+            Tecnologia para
+            <br />
+            <span className="text-gradient">resolver problemas.</span>
+          </h1>
 
-            <p>
-              Atuo com{' '}
-              <strong className="text-[--text]">
-                suporte N1/N2 presencial e remoto
-              </strong>
-              , redes, administração de acessos e permissões e suporte ao
-              sistema <strong className="text-[--text]">MV Soul</strong>.
-              Também atuo com{' '}
-              <strong className="text-[--text]">
-                desenvolvimento web com IA aplicada
-              </strong>
-              , análise de requisitos e processos e{' '}
-              <strong className="text-[--text]">
-                automação de processos
-              </strong>
-              , buscando sempre soluções mais eficientes para as necessidades
-              do negócio.
-            </p>
+          <p
+            data-reveal
+            className="reveal mt-7 max-w-2xl text-lg leading-8 text-slate-400 sm:text-xl"
+          >
+            Profissional de TI focado na resolução de problemas, atuando desde
+            o suporte técnico até o desenvolvimento de soluções.
+          </p>
+
+          <div data-reveal className="reveal mt-9 flex flex-wrap gap-3">
+            <a
+              href="#projetos"
+              className="inline-flex items-center gap-2 rounded-xl bg-cyan-400 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-300"
+            >
+              Ver projetos
+              <ArrowUpRight size={17} />
+            </a>
+
+            <a
+              href="#contato"
+              className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-5 py-3 text-sm font-semibold text-white transition hover:border-cyan-400/30 hover:bg-cyan-400/5"
+            >
+              Entrar em contato
+            </a>
+          </div>
+
+          <div
+            data-reveal
+            className="reveal mt-14 flex flex-wrap gap-x-7 gap-y-4 text-sm text-slate-500"
+          >
+            <span className="flex items-center gap-2">
+              <CheckCircle2 size={16} className="text-cyan-400" />
+              Suporte N1/N2
+            </span>
+
+            <span className="flex items-center gap-2">
+              <CheckCircle2 size={16} className="text-cyan-400" />
+              Redes e acessos
+            </span>
+
+            <span className="flex items-center gap-2">
+              <CheckCircle2 size={16} className="text-cyan-400" />
+              Desenvolvimento Web
+            </span>
+
+            <span className="flex items-center gap-2">
+              <CheckCircle2 size={16} className="text-cyan-400" />
+              Automação
+            </span>
           </div>
         </div>
 
-        <div className="mt-10 flex flex-wrap gap-3">
-          <Badge
-            icon={<Terminal className="h-4 w-4" />}
-            label="Suporte N1/N2"
-          />
-
-          <Badge
-            icon={<Workflow className="h-4 w-4" />}
-            label="Análise de Sistemas e Processos"
-          />
-
-          <Badge
-            icon={<Wifi className="h-4 w-4" />}
-            label="Redes"
-          />
-
-          <Badge
-            icon={<Code2 className="h-4 w-4" />}
-            label="JavaScript · Python"
-          />
-
-          <Badge
-            icon={<ShieldCheck className="h-4 w-4" />}
-            label="Segurança da Informação"
-          />
-
-          <Badge
-            icon={<Cpu className="h-4 w-4" />}
-            label="Ferramentas de IA"
-          />
+        <div className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-xs text-slate-600 sm:flex">
+          <span>Role para explorar</span>
+          <ChevronDown size={16} className="animate-bounce" />
         </div>
       </div>
     </section>
   );
 }
 
-type MilestoneGroup = {
-  label: string;
-  items: string[];
-};
+function Sobre() {
+  const skills = [
+    {
+      icon: <UserRound size={19} />,
+      title: 'Suporte N1/N2',
+      text: 'Atendimento presencial e remoto, diagnóstico e resolução de incidentes.',
+    },
+    {
+      icon: <Network size={19} />,
+      title: 'Redes e acessos',
+      text: 'Rotinas de rede, permissões, acessos e suporte à infraestrutura.',
+    },
+    {
+      icon: <Database size={19} />,
+      title: 'Sistemas e dados',
+      text: 'Atuação com sistemas corporativos, banco de dados e análise de processos.',
+    },
+    {
+      icon: <Sparkles size={19} />,
+      title: 'Desenvolvimento',
+      text: 'Criação de aplicações web e soluções com IA aplicada.',
+    },
+  ];
 
-type Milestone = {
-  period: string;
-  title: string;
-  description: string;
-  groups?: MilestoneGroup[];
-};
-
-const TRAJETORIA: Milestone[] = [
-  {
-    period: '2017 — 2018',
-    title: 'Exército Brasileiro',
-    description:
-      'Serviço militar, desenvolvendo disciplina, responsabilidade, trabalho em equipe e capacidade de atuação sob pressão.',
-  },
-  {
-    period: '2017 — 2018',
-    title: 'Técnico em Manutenção de Computadores — SENAI',
-    description:
-      'Formação técnica em manutenção de hardware e software, estabelecendo a base da minha entrada na área de tecnologia.',
-  },
-  {
-    period: '2020 — 2022',
-    title: 'Santa Casa de Santos',
-    description:
-      'Atendimento e recepção, com contato direto com rotina institucional, usuários e processos internos na área da saúde.',
-  },
-  {
-    period: '2022 — 2025',
-    title: 'Plano Santa Saúde',
-    description:
-      'Atuação em recepção e rotinas administrativas, com evolução profissional e promoção interna para a equipe de TI.',
-  },
-  {
-    period: '2025 — atual',
-    title: 'Suporte de TI N1/N2 — Plano Santa Saúde',
-    description:
-      'Atuação com suporte técnico presencial e remoto, redes, hardware, software, administração de acessos e suporte ao sistema hospitalar MV Soul.',
-  },
-  {
-    period: '2026 — 2028',
-    title: 'Análise e Desenvolvimento de Sistemas — Anhanguera',
-    description:
-      'Graduação em andamento, ampliando conhecimentos em desenvolvimento, análise de sistemas, processos e tecnologia aplicada aos negócios.',
-    groups: [
-      {
-        label: 'Formações complementares',
-        items: [
-          'Administração de Banco de Dados — Fundação Bradesco, 2026',
-          'Cybersecurity — Hackers do Bem, 2024',
-          'LGPD — Fundação Bradesco, 2023',
-          'Tecnologia da Informação e Comunicação — Fundação Bradesco, 2024',
-        ],
-      },
-    ],
-  },
-];
-
-function Trajetoria() {
-  const { ref, shown } = useReveal<HTMLOListElement>();
+  const courses = [
+    {
+      icon: <ShieldCheck size={18} />,
+      title: 'Cybersecurity',
+      institution: 'Hackers do Bem • 2024',
+    },
+    {
+      icon: <Database size={18} />,
+      title: 'Análise de Dados e Administração de Banco de Dados',
+      institution: 'Fundação Bradesco • 2025–2026',
+    },
+    {
+      icon: <BriefcaseBusiness size={18} />,
+      title: 'Projetos e Sistemas de TI',
+      institution: 'Fundação Bradesco • 2025',
+    },
+    {
+      icon: <LockKeyhole size={18} />,
+      title: 'LGPD',
+      institution: 'Fundação Bradesco • 2023',
+    },
+  ];
 
   return (
-    <section
-      id="trajetoria"
-      aria-labelledby="trajetoria-title"
-      className="mt-28 scroll-mt-24 sm:mt-36"
-    >
-      <SectionHeading index="02." title="Trajetória" />
+    <section id="sobre" className="border-t border-white/5 py-28">
+      <div className="mx-auto max-w-6xl px-5 lg:px-8">
+        <SectionHeading
+          eyebrow="Sobre mim"
+          title="Quem é João Vitor?"
+          description="Profissional de TI focado na resolução de problemas, atuando desde o suporte técnico até o desenvolvimento de soluções."
+        />
 
-      <h3 id="trajetoria-title" className="sr-only">
-        Trajetória profissional e acadêmica
-      </h3>
-
-      <ol
-        ref={ref}
-        className={`mt-8 space-y-6 transition-all duration-700 ease-out ${
-          shown
-            ? 'translate-y-0 opacity-100'
-            : 'translate-y-6 opacity-0'
-        }`}
-      >
-        {TRAJETORIA.map((milestone) => (
-          <li
-            key={`${milestone.period}-${milestone.title}`}
-            className="flex gap-4 sm:gap-6"
-          >
-            <span className="mt-1 whitespace-nowrap font-mono text-xs text-[--accent-bright] sm:text-sm">
-              {milestone.period}
-            </span>
-
-            <div className="border-l border-[--line] pl-4 sm:pl-6">
-              <h4 className="font-semibold text-[--text]">
-                {milestone.title}
-              </h4>
-
-              <p className="mt-1 text-sm leading-relaxed text-[#d6cde4] sm:text-base">
-                {milestone.description}
+        <div className="grid gap-12 lg:grid-cols-[1.05fr_.95fr]">
+          <div data-reveal className="reveal">
+            <div className="rounded-2xl border border-white/10 bg-white/[0.025] p-7 glow">
+              <p className="text-base leading-8 text-slate-300">
+                Atuo com{' '}
+                <strong className="font-semibold text-white">
+                  suporte N1/N2 presencial e remoto
+                </strong>
+                , redes, administração de acessos e permissões e suporte ao
+                sistema hospitalar MV Soul.
               </p>
 
-              {milestone.groups?.map((group) => (
-                <div key={group.label} className="mt-3">
-                  <span className="text-xs font-semibold text-[--accent-bright]">
-                    {group.label}:
-                  </span>
+              <p className="mt-5 text-base leading-8 text-slate-300">
+                Também atuo com{' '}
+                <strong className="font-semibold text-white">
+                  desenvolvimento web com IA aplicada
+                </strong>
+                , análise de requisitos e processos e automação de processos,
+                buscando sempre soluções mais eficientes para as necessidades
+                do negócio.
+              </p>
 
-                  <ul className="mt-1 space-y-1 text-xs text-[#d6cde4]">
-                    {group.items.map((item) => (
-                      <li key={item}>• {item}</li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
+              <div className="mt-8 flex items-center gap-3 border-t border-white/10 pt-6 text-sm text-slate-400">
+                <MapPin size={17} className="text-cyan-400" />
+                Santos, São Paulo — Brasil
+              </div>
             </div>
-          </li>
-        ))}
-      </ol>
+          </div>
+
+          <div
+            data-reveal
+            className="reveal grid gap-4 sm:grid-cols-2"
+          >
+            {skills.map((skill) => (
+              <div
+                key={skill.title}
+                className="rounded-2xl border border-white/10 bg-white/[0.025] p-5 transition hover:border-cyan-400/20 hover:bg-cyan-400/[0.03]"
+              >
+                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-400/10 text-cyan-300">
+                  {skill.icon}
+                </div>
+
+                <h3 className="font-semibold text-white">{skill.title}</h3>
+
+                <p className="mt-2 text-sm leading-6 text-slate-500">
+                  {skill.text}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div data-reveal className="reveal mt-16">
+          <div className="mb-6 flex items-center gap-3">
+            <GraduationCap size={20} className="text-cyan-300" />
+
+            <div>
+              <h3 className="text-xl font-bold text-white">
+                Formação complementar
+              </h3>
+
+              <p className="mt-1 text-sm text-slate-500">
+                Conhecimentos selecionados que complementam minha atuação em TI.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {courses.map((course) => (
+              <div
+                key={course.title}
+                className="rounded-xl border border-white/10 bg-white/[0.02] p-4 transition hover:border-cyan-400/20"
+              >
+                <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-lg bg-cyan-400/10 text-cyan-300">
+                  {course.icon}
+                </div>
+
+                <h4 className="text-sm font-semibold leading-5 text-white">
+                  {course.title}
+                </h4>
+
+                <p className="mt-2 text-xs leading-5 text-slate-500">
+                  {course.institution}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
 
-function Badge({
-  icon,
-  label,
-}: {
+type Milestone = {
+  period: string;
+  title: string;
+  company: string;
+  description: string;
   icon: ReactNode;
-  label: string;
-}) {
-  return (
-    <span className="inline-flex items-center gap-2 rounded-full border border-[--line] bg-[--bg-soft] px-3.5 py-1.5 text-sm font-medium text-[--muted] transition-colors duration-200 hover:border-[--accent]/60 hover:text-[--text]">
-      <span
-        className="text-[--accent-bright]"
-        aria-hidden="true"
-      >
-        {icon}
-      </span>
+};
 
-      {label}
+const TRAJETORIA: Milestone[] = [
+  {
+    period: '2017 – 2018',
+    title: 'Exército Brasileiro',
+    company: 'Experiência profissional',
+    description:
+      'Experiência marcada por disciplina, responsabilidade, trabalho em equipe e atuação sob pressão.',
+    icon: <BriefcaseBusiness size={19} />,
+  },
+  {
+    period: '2020 – 2022',
+    title: 'Atuação em TI',
+    company: 'Santa Casa de Santos',
+    description:
+      'Experiência profissional em ambiente de saúde, desenvolvendo base prática em suporte e atendimento de usuários.',
+    icon: <Building2 size={19} />,
+  },
+  {
+    period: '2022 – 2025',
+    title: 'Suporte de TI',
+    company: 'Plano Santa Saúde',
+    description:
+      'Atuação com suporte técnico, sistemas, usuários e rotinas de tecnologia em ambiente corporativo.',
+    icon: <Network size={19} />,
+  },
+  {
+    period: '2025 – atual',
+    title: 'Suporte de TI N1/N2',
+    company: 'Plano Santa Saúde',
+    description:
+      'Atuação com suporte presencial e remoto, redes, impressoras, acessos, permissões e sistema hospitalar MV Soul.',
+    icon: <Rocket size={19} />,
+  },
+  {
+    period: '2026 – 2028',
+    title: 'Análise e Desenvolvimento de Sistemas',
+    company: 'Anhanguera',
+    description:
+      'Formação acadêmica em andamento, ampliando conhecimentos em desenvolvimento, análise de sistemas e tecnologia.',
+    icon: <GraduationCap size={19} />,
+  },
+];
+
+function Trajetoria() {
+  return (
+    <section id="trajetoria" className="border-t border-white/5 py-28">
+      <div className="mx-auto max-w-5xl px-5 lg:px-8">
+        <SectionHeading
+          eyebrow="Trajetória"
+          title="Experiência que constrói repertório."
+          description="Uma trajetória que conecta experiência prática, suporte de TI e formação em desenvolvimento e análise de sistemas."
+        />
+
+        <div className="relative">
+          <div className="absolute bottom-0 left-[19px] top-0 w-px bg-gradient-to-b from-cyan-400/40 via-white/10 to-transparent" />
+
+          <div className="space-y-8">
+            {TRAJETORIA.map((item, index) => (
+              <div
+                key={item.period + item.title}
+                data-reveal
+                className="reveal relative pl-14"
+                style={{ transitionDelay: `${index * 80}ms` }}
+              >
+                <div className="absolute left-0 top-1 flex h-10 w-10 items-center justify-center rounded-full border border-cyan-400/20 bg-[#070b12] text-cyan-300">
+                  {item.icon}
+                </div>
+
+                <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 transition hover:border-cyan-400/20">
+                  <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-cyan-300">
+                        {item.period}
+                      </p>
+
+                      <h3 className="mt-2 text-xl font-bold text-white">
+                        {item.title}
+                      </h3>
+
+                      <p className="mt-1 text-sm font-medium text-slate-400">
+                        {item.company}
+                      </p>
+                    </div>
+
+                    <span className="inline-flex w-fit items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-xs text-slate-500">
+                      <CalendarDays size={13} />
+                      Experiência
+                    </span>
+                  </div>
+
+                  <p className="mt-5 max-w-3xl text-sm leading-7 text-slate-400">
+                    {item.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Badge({ children }: { children: ReactNode }) {
+  return (
+    <span className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-[11px] font-medium text-slate-400">
+      {children}
     </span>
   );
 }
 
 function Projects() {
-  const { ref, shown } = useReveal<HTMLUListElement>();
-
   return (
-    <section
-      id="projetos"
-      aria-labelledby="projetos-title"
-      className="mt-28 scroll-mt-24 sm:mt-36"
-    >
-      <SectionHeading index="03." title="Projetos" />
+    <section id="projetos" className="border-t border-white/5 py-28">
+      <div className="mx-auto max-w-6xl px-5 lg:px-8">
+        <SectionHeading
+          eyebrow="Projetos"
+          title="Projetos que mostram na prática."
+          description="Soluções desenvolvidas para resolver problemas reais, explorar tecnologia e transformar ideias em aplicações funcionais."
+        />
 
-      <h3 id="projetos-title" className="sr-only">
-        Projetos desenvolvidos
-      </h3>
-
-      <ul
-        ref={ref}
-        className={`mt-8 space-y-5 transition-all duration-700 ease-out ${
-          shown
-            ? 'translate-y-0 opacity-100'
-            : 'translate-y-6 opacity-0'
-        }`}
-      >
-        {PROJECTS.map((project, index) => (
-          <ProjectCard
-            key={project.title}
-            project={project}
-            index={index}
-          />
-        ))}
-      </ul>
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {PROJECTS.map((project, index) => (
+            <ProjectCard
+              key={project.title}
+              project={project}
+              index={index}
+            />
+          ))}
+        </div>
+      </div>
     </section>
   );
 }
@@ -612,103 +759,95 @@ function ProjectCard({
   project: Project;
   index: number;
 }) {
-  const { ref, shown } = useReveal<HTMLLIElement>();
-
   return (
-    <li
-      ref={ref}
-      className={`group list-none rounded-xl border border-[--line] bg-[--panel]/60 p-5 transition-[transform,box-shadow,border-color,background-color,opacity] duration-300 ease-out hover:-translate-y-2 hover:border-[--accent]/70 hover:bg-[--panel] hover:shadow-[0_16px_40px_-12px_rgba(194,24,91,0.45)] sm:p-6 ${
-        shown ? 'opacity-100' : 'opacity-0'
-      }`}
-      style={{
-        transitionDelay: `${index * 90}ms`,
-      }}
+    <article
+      data-reveal
+      className="reveal group flex h-full flex-col rounded-2xl border border-white/10 bg-white/[0.025] p-6 transition duration-300 hover:-translate-y-1 hover:border-cyan-400/20 hover:bg-cyan-400/[0.025]"
+      style={{ transitionDelay: `${index * 70}ms` }}
     >
-      <a
-        href={project.href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="flex flex-col gap-3 rounded-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-[--accent] focus-visible:outline-offset-4"
-        aria-label={`Acessar o projeto ${project.title}`}
-      >
-        <div className="flex items-start justify-between gap-4">
-          <h4 className="text-lg font-semibold text-[--text] transition-colors duration-200 group-hover:text-[--accent-bright] sm:text-xl">
-            {project.title}
-          </h4>
-
-          <ArrowUpRight
-            className="mt-1 h-5 w-5 shrink-0 text-[--dim] transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[--accent-bright]"
-            aria-hidden="true"
-          />
+      <div className="flex items-start justify-between gap-4">
+        <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-cyan-400/10 bg-cyan-400/10 text-cyan-300">
+          {project.icon}
         </div>
 
-        <p className="text-sm leading-relaxed text-[#d6cde4] sm:text-base">
-          {project.description}
-        </p>
-
-        <div className="mt-1 flex items-center gap-2 font-mono text-xs text-[--accent-bright]">
-          <span aria-hidden="true">🔗</span>
-
-          <span className="truncate transition-colors group-hover:underline">
-            {project.href.replace(/^https?:\/\//, '')}
-          </span>
-        </div>
-
-        <ul
-          className="mt-1 flex flex-wrap gap-2"
-          aria-label={`Tecnologias utilizadas em ${project.title}`}
+        <a
+          href={project.url}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={`Abrir ${project.title}`}
+          className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 text-slate-500 transition hover:border-cyan-400/30 hover:text-cyan-300"
         >
-          {project.tags.map((tag) => (
-            <li
-              key={tag}
-              className="rounded-md border border-[--line] bg-[--bg-soft] px-2.5 py-1 font-mono text-xs text-[--muted] transition-colors duration-200 group-hover:border-[--accent]/40 group-hover:text-[--text]"
-            >
-              {tag}
-            </li>
-          ))}
-        </ul>
+          <ArrowUpRight size={17} />
+        </a>
+      </div>
+
+      <h3 className="mt-6 text-xl font-bold text-white">
+        {project.title}
+      </h3>
+
+      <p className="mt-3 flex-1 text-sm leading-7 text-slate-500">
+        {project.description}
+      </p>
+
+      <div className="mt-6 flex flex-wrap gap-2">
+        {project.tags.map((tag) => (
+          <Badge key={tag}>{tag}</Badge>
+        ))}
+      </div>
+
+      <a
+        href={project.url}
+        target="_blank"
+        rel="noreferrer"
+        className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-cyan-300 transition group-hover:text-cyan-200"
+      >
+        Acessar projeto
+        <ArrowUpRight size={15} />
       </a>
-    </li>
+    </article>
   );
 }
 
 function Contact() {
-  const { ref, shown } = useReveal<HTMLDivElement>();
-
   return (
-    <section
-      id="contato"
-      aria-labelledby="contato-title"
-      className="mt-28 scroll-mt-24 sm:mt-40"
-    >
-      <div
-        ref={ref}
-        className={`transition-all duration-700 ease-out ${
-          shown
-            ? 'translate-y-0 opacity-100'
-            : 'translate-y-6 opacity-0'
-        }`}
-      >
-        <p className="mb-4 font-mono text-sm text-[--accent-bright]">
-          04.
-        </p>
+    <section id="contato" className="border-t border-white/5 py-28">
+      <div className="mx-auto max-w-4xl px-5 text-center lg:px-8">
+        <div data-reveal className="reveal">
+          <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-cyan-300">
+            <Mail size={15} />
+            Contato
+          </span>
 
-        <h2
-          id="contato-title"
-          className="text-3xl font-bold tracking-tight sm:text-5xl"
-        >
-          Vamos conversar.
-        </h2>
+          <h2 className="mt-5 text-4xl font-bold tracking-tight text-white sm:text-5xl">
+            Vamos conversar?
+          </h2>
 
-        <p className="mt-5 max-w-xl text-base leading-relaxed text-[#d6cde4] sm:text-lg">
-          Quem vive o suporte no dia a dia enxerga onde o processo trava.
-          Quero levar essa visão para a análise de sistemas e processos, e
-          já venho praticando isso em projetos reais. Se sua equipe procura
-          alguém com essa visão, entre em contato comigo.
-        </p>
+          <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-slate-400">
+            Estou aberto a oportunidades, projetos e conexões profissionais
+            na área de tecnologia.
+          </p>
 
-        <div className="mt-8">
-          <SocialLinks />
+          <div className="mt-9 flex flex-wrap justify-center gap-3">
+            <a
+              href={LINKEDIN_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 rounded-xl bg-cyan-400 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-300"
+            >
+              <Linkedin size={17} />
+              LinkedIn
+            </a>
+
+            <a
+              href={GITHUB_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-5 py-3 text-sm font-semibold text-white transition hover:border-cyan-400/30 hover:bg-cyan-400/5"
+            >
+              <Github size={17} />
+              GitHub
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -717,14 +856,30 @@ function Contact() {
 
 function Footer() {
   return (
-    <footer className="relative z-10 border-t border-[--line]">
-      <div className="mx-auto flex max-w-2xl flex-col items-center gap-3 px-6 py-8 text-center sm:flex-row sm:justify-between sm:text-left lg:pl-0">
-        <p className="font-mono text-xs text-[--dim]">
-          Desenvolvido &amp; mantido por João Vitor
-        </p>
+    <footer className="border-t border-white/5">
+      <div className="mx-auto flex max-w-6xl flex-col gap-4 px-5 py-8 sm:flex-row sm:items-center sm:justify-between lg:px-8">
+        <div>
+          <p className="text-sm font-semibold text-white">
+            João Vitor
+          </p>
 
-        <SocialLinks className="lg:hidden" />
+          <p className="mt-1 text-xs text-slate-600">
+            Profissional de TI • Suporte • Infraestrutura • Análise de Sistemas
+          </p>
+        </div>
+
+        <div className="flex items-center gap-4">
+          <SocialLinks />
+
+          <span className="hidden h-5 w-px bg-white/10 sm:block" />
+
+          <p className="text-xs text-slate-600">
+            created for: Costa-Dias
+          </p>
+        </div>
       </div>
     </footer>
   );
 }
+
+export default App;
