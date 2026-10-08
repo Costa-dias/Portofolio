@@ -10,7 +10,6 @@ import {
   Database,
   Github,
   GraduationCap,
-  Instagram,
   Linkedin,
   LockKeyhole,
   Mail,
@@ -493,16 +492,16 @@ function Sobre() {
     {
       icon: <Database size={18} />,
       title: 'Análise de Dados e Administração de Banco de Dados',
-      institution: 'Fundação Bradesco • 2025–2026',
+      institution: 'Fundação Bradesco • 2026',
     },
     {
       icon: <BriefcaseBusiness size={18} />,
-      title: 'Projetos e Sistemas de TI',
-      institution: 'Fundação Bradesco • 2025',
+      title: 'Tecnologia da Informação e Comunicação',
+      institution: 'Fundação Bradesco • 2024',
     },
     {
       icon: <LockKeyhole size={18} />,
-      title: 'LGPD',
+      title: 'Lei Geral de Proteção de Dados (LGPD)',
       institution: 'Fundação Bradesco • 2023',
     },
   ];
@@ -540,7 +539,7 @@ function Sobre() {
 
               <div className="mt-8 flex items-center gap-3 border-t border-white/10 pt-6 text-sm text-slate-400">
                 <MapPin size={17} className="text-cyan-400" />
-                Santos, São Paulo — Brasil
+                Praia Grande, São Paulo — Brasil
               </div>
             </div>
           </div>
@@ -619,44 +618,44 @@ type Milestone = {
 
 const TRAJETORIA: Milestone[] = [
   {
-    period: '2017 – 2018',
-    title: 'Exército Brasileiro',
-    company: 'Experiência profissional',
+    period: 'jan/2017 – mar/2018',
+    title: 'Auxiliar de Atendimento Interno e Externo',
+    company: 'Exército Brasileiro (FUSEX)',
     description:
-      'Experiência marcada por disciplina, responsabilidade, trabalho em equipe e atuação sob pressão.',
+      'Apoio à área de computação e ao agendamento de serviços, desenvolvendo disciplina, organização, responsabilidade e capacidade de trabalhar sob pressão.',
     icon: <BriefcaseBusiness size={19} />,
   },
   {
-    period: '2020 – 2022',
-    title: 'Atuação em TI',
+    period: 'fev/2021 – mai/2022',
+    title: 'Recepcionista',
     company: 'Santa Casa de Santos',
     description:
-      'Experiência profissional em ambiente de saúde, desenvolvendo base prática em suporte e atendimento de usuários.',
+      'Atendimento administrativo nos setores de pronto-socorro e laboratório, com suporte aos sistemas hospitalares e atuação em rotina de alto volume.',
     icon: <Building2 size={19} />,
   },
   {
-    period: '2022 – 2025',
-    title: 'Suporte de TI',
-    company: 'Plano Santa Saúde',
+    period: 'mai/2022 – nov/2025',
+    title: 'Auxiliar de Atendimento Pleno',
+    company: 'Associação Santa Saúde',
     description:
-      'Atuação com suporte técnico, sistemas, usuários e rotinas de tecnologia em ambiente corporativo.',
+      'Atendimento e suporte de primeiro nível na recepção aos sistemas hospitalares integrados, sustentando a rotina administrativa da unidade e apoiando a equipe de TI na identificação e encaminhamento de problemas técnicos recorrentes.',
+    icon: <UserRound size={19} />,
+  },
+  {
+    period: 'jan/2024 – fev/2024',
+    title: 'Assistente de Suporte de T.I. (autônomo)',
+    company: 'BenTech',
+    description:
+      'Suporte técnico e manutenção preventiva e corretiva de sistemas e computadores, com apoio à implementação de soluções de infraestrutura.',
     icon: <Network size={19} />,
   },
   {
-    period: '2025 – atual',
-    title: 'Suporte de TI N1/N2',
-    company: 'Plano Santa Saúde',
+    period: 'dez/2025 – atual',
+    title: 'Auxiliar de Suporte T.I.',
+    company: 'Associação Santa Saúde — Hospital Infantil Gonzaga',
     description:
-      'Atuação com suporte presencial e remoto, redes, impressoras, acessos, permissões e sistema hospitalar MV Soul.',
+      'Suporte técnico N1/N2 aos usuários da unidade hospitalar, com atendimento presencial e remoto, suporte a hardware, software e rede, administração de acessos e permissões no MV SOUL Hospitalar e manutenção de estações e periféricos. Promovido da recepção para a equipe oficial de TI após assumir de forma proativa o suporte técnico interno.',
     icon: <Rocket size={19} />,
-  },
-  {
-    period: '2026 – 2028',
-    title: 'Análise e Desenvolvimento de Sistemas',
-    company: 'Anhanguera',
-    description:
-      'Formação acadêmica em andamento, ampliando conhecimentos em desenvolvimento, análise de sistemas e tecnologia.',
-    icon: <GraduationCap size={19} />,
   },
 ];
 
@@ -666,8 +665,8 @@ function Trajetoria() {
       <div className="mx-auto max-w-5xl px-5 lg:px-8">
         <SectionHeading
           eyebrow="Trajetória"
-          title="Experiência que constrói repertório."
-          description="Uma trajetória que conecta experiência prática, suporte de TI e formação em desenvolvimento e análise de sistemas."
+          title="Da recepção à TI."
+          description="Uma trajetória construída na prática, começando pelo atendimento e evoluindo para suporte técnico, infraestrutura e desenvolvimento de soluções."
         />
 
         <div className="relative">
@@ -703,7 +702,7 @@ function Trajetoria() {
 
                     <span className="inline-flex w-fit items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-xs text-slate-500">
                       <CalendarDays size={13} />
-                      Experiência
+                      Experiência profissional
                     </span>
                   </div>
 
@@ -713,6 +712,30 @@ function Trajetoria() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+
+        <div
+          data-reveal
+          className="reveal mt-12 rounded-2xl border border-cyan-400/10 bg-cyan-400/[0.03] p-6"
+        >
+          <div className="flex items-start gap-4">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-cyan-400/10 text-cyan-300">
+              <Sparkles size={19} />
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-white">
+                Evolução profissional
+              </h3>
+
+              <p className="mt-2 text-sm leading-7 text-slate-400">
+                A experiência em atendimento e ambiente hospitalar proporcionou
+                conhecimento dos processos e das necessidades dos usuários,
+                experiência que hoje é aplicada diretamente na atuação em TI,
+                suporte, sistemas e análise de processos.
+              </p>
+            </div>
           </div>
         </div>
       </div>
