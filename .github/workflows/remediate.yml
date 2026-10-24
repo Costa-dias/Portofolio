@@ -20,7 +20,7 @@ jobs:
           cache: npm
       - run: npm ci --no-fund
       - name: Test patched Vite and compatible React plugin on this branch
-        run: npm install --save-dev vite@^8.3.5 @vitejs/plugin-react@^6.1.2 --no-fund
+        run: npm install --save-dev vite@^8.3.5 @vitejs/plugin-react@^6.1.2 tailwindcss@^4.3.3 @tailwindcss/vite@^4.3.3 --no-fund
       - name: Refresh direct dependencies within existing compatible ranges
         run: npm update --no-fund
       - name: Apply semver-compatible security patches
