@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "owner": "Costa-dias",
+  "host": "portfolio-qrb3.onrender.com",
+  "repository": "Costa-dias/Portofolio",
+  "registration": "b37bb9df7de0af6e03508942f1191a0c",
+  "scope": [
+    "https-headers"
+  ]
+}
