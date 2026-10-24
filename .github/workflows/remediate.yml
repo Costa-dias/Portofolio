@@ -19,6 +19,8 @@ jobs:
           node-version: '24.22.1'
           cache: npm
       - run: npm ci --no-fund
+      - name: Refresh direct dependencies within existing compatible ranges
+        run: npm update --no-fund
       - name: Apply semver-compatible security patches
         run: npm audit fix --no-fund || true
       - run: npm run typecheck
