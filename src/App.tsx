@@ -1,3 +1,4 @@
+import { CASE_STUDIES } from './caseStudies';
 import { useEffect, useState, type ReactNode } from 'react';
 import {
   ArrowUpRight,
@@ -47,7 +48,7 @@ const PROJECTS: Project[] = [
   {
     title: 'FraudLens',
     description:
-      'Plataforma criada para ajudar usuários a identificar possíveis golpes e fraudes antes de interagir com links, imagens, QR Codes e outros conteúdos suspeitos.',
+      'Verificação de URLs com sinais explicados e cobertura das bases externas. Extrai QR Codes de imagens e vídeos no próprio aparelho.',
     url: 'https://fraudlens-code.onrender.com/',
     icon: <ShieldCheck size={22} />,
     tags: ['Segurança', 'IA aplicada', 'Web', 'API'],
@@ -66,7 +67,7 @@ const PROJECTS: Project[] = [
       'Sistema para organização e gerenciamento de serviços e plantões, pensado para facilitar o controle de escalas e informações operacionais.',
     url: 'https://gestao-de-plantao.onrender.com/',
     icon: <CalendarDays size={22} />,
-    tags: ['Web', 'Gestão', 'Automação', 'Supabase'],
+    tags: ['React', 'TypeScript', 'IndexedDB', 'Web Crypto'],
   },
   {
     title: 'Plataforma para Corretor de Imóveis',
@@ -254,6 +255,11 @@ function App() {
             0 0 60px rgba(34,211,238,0.06);
         }
 
+        @media (prefers-reduced-motion: reduce) {
+          html { scroll-behavior: auto; }
+          .reveal { opacity: 1; transform: none; transition: none; }
+          .animate-bounce, .animate-pulse { animation: none; }
+        }
         .text-gradient {
           background: linear-gradient(
             90deg,
@@ -782,6 +788,7 @@ function ProjectCard({
   project: Project;
   index: number;
 }) {
+  const study = CASE_STUDIES[project.title];
   return (
     <article
       data-reveal
@@ -817,6 +824,17 @@ function ProjectCard({
           <Badge key={tag}>{tag}</Badge>
         ))}
       </div>
+
+      {study && <>
+        <a href={`https://github.com/Costa-dias/${study.repo}`} target="_blank" rel="noreferrer" className="mt-5 text-sm text-cyan-300 underline">Código e validação no GitHub</a>
+        <details className="mt-4 rounded-xl border border-white/10 p-3 text-sm text-slate-300">
+          <summary className="cursor-pointer font-semibold text-white">Estudo de caso</summary>
+          <dl className="mt-3 space-y-3">
+            {([['Problema', study.problem], ['Decisões técnicas', study.decisions], ['Cenário de demonstração', study.example], ['Validação', study.validation], ['Limitações', study.limits]] as const).map(([label, text]) => <div key={label}><dt className="font-semibold text-cyan-300">{label}</dt><dd className="mt-1 leading-6">{text}</dd></div>)}
+          </dl>
+          <p className="mt-3 text-xs text-slate-400">Projeto desenvolvido com apoio de IA aplicada. Os cenários ilustrativos não representam métricas de uso em produção.</p>
+        </details>
+      </>}
 
       <a
         href={project.url}

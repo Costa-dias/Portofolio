@@ -1,51 +1,27 @@
 # Portfólio — João Vitor
 
-Site pessoal, estático, desenvolvido para apresentar minha trajetória profissional e os projetos que venho construindo na transição de carreira para Análise de Sistemas e Processos.
+Site pessoal em React/TypeScript, Vite e Tailwind CSS para apresentar trajetória em TI e projetos de desenvolvimento com IA aplicada.
 
-🔗 **Site publicado:** [[https://portfolio-qrb3.onrender.com/](https://portfolio-qrb3.onrender.com/)]
-🔗 **LinkedIn:** [linkedin.com/in/joao-vitor-tec](https://www.linkedin.com/in/joao-vitor-tec/)
-🔗 **GitHub:** [github.com/Costa-dias](https://github.com/Costa-dias)
+- [Portfólio](https://portfolio-qrb3.onrender.com/)
+- [LinkedIn](https://www.linkedin.com/in/joao-vitor-tec/)
+- [GitHub](https://github.com/Costa-dias)
 
-## Sobre
+## Projetos e estudos de caso
 
-Profissional de TI em transição de carreira para Análise de Sistemas e Processos. Atuo hoje com suporte N1/N2, redes e administração de acessos no sistema MV Soul, e uso JavaScript, Python e ferramentas de IA para prototipar soluções web e automatizar processos nas horas vagas.
+TurnoExtra, Dashboard Finanças e FraudLens incluem problema, decisões técnicas, cenário fictício, validação e limitações, com acesso ao código-fonte. Os cenários de demonstração são ilustrativos; não representam métricas de clientes ou de uso em produção. Capturas identificadas como demonstração usam dados fictícios.
 
-## Projetos em destaque
+O TurnoExtra usa IndexedDB/Web Crypto localmente; não depende de Supabase. O Honey Bee usa Supabase para catálogo e administração. Conteúdo técnico dos estudos está em `src/caseStudies.ts`.
 
-- **Honey Bee — Catálogo Digital Interativo**: catálogo web para estabelecimentos de café da manhã, doces e panificação, com pedidos via WhatsApp.
-- **Plataforma para Corretor de Imóveis**: plataforma full-stack para exibição, busca e gestão de catálogo imobiliário.
-- **FraudLens — Segurança antes do clique**: ferramenta anônima para verificação de links, prints e QR codes suspeitos.
+## Executar
 
-## Tecnologias
-
-- React + TypeScript
-- Vite
-- Tailwind CSS
-
-## Segurança
-
-O deploy inclui headers de segurança HTTP configurados via `render.yaml`:
-
-- Content-Security-Policy
-- X-Frame-Options
-- X-Content-Type-Options
-- Referrer-Policy
-- Permissions-Policy
-- Strict-Transport-Security
-
-## Rodando localmente
+Requer Node.js 24.
 
 ```bash
-npm install
+npm ci
 npm run dev
-```
-
-## Build de produção
-
-```bash
+npm run typecheck
+npm run lint
 npm run build
 ```
 
----
-
-Desenvolvido e mantido por João Vitor.
+O deploy estático gera `dist/`. Configuração dos headers de produção está em `render.yaml`; a existência dessa configuração não comprova os headers da versão atualmente publicada.
