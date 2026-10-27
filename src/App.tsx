@@ -1,3 +1,4 @@
+import { ProjectBehindScenes } from './ProjectBehindScenes';
 import { TurnoBehindScenes } from './TurnoBehindScenes';
 import { CASE_STUDIES } from './caseStudies';
 import { useEffect, useState, type ReactNode } from 'react';
@@ -47,12 +48,19 @@ type Project = {
 
 const PROJECTS: Project[] = [
   {
+    title: 'Assistente de TI',
+    description: 'Aplicação privada de uso pessoal que evoluiu de consultas a registros técnicos para um ambiente web com busca de OS, recorrências e apoio opcional do Gemini. Desenvolvida com apoio de IA, revisão e validação do código.',
+    url: 'https://github.com/Costa-dias/projeto-web-ti-apresentacao',
+    icon: <BriefcaseBusiness size={22} />,
+    tags: ['Projeto privado', 'React', 'Google Sheets', 'Gemini'],
+  },
+  {
     title: 'FraudLens',
     description:
       'Verificação de URLs com sinais explicados e cobertura das bases externas. Extrai QR Codes de imagens e vídeos no próprio aparelho.',
     url: 'https://fraudlens-code.onrender.com/',
     icon: <ShieldCheck size={22} />,
-    tags: ['Segurança', 'IA aplicada', 'Web', 'API'],
+    tags: ['Segurança', 'React', 'Python', 'API'],
   },
   {
     title: 'Dashboard Finanças',
@@ -826,7 +834,7 @@ function ProjectCard({
         ))}
       </div>
 
-      {project.title === 'TurnoExtra' && <TurnoBehindScenes />}
+      {project.title === 'TurnoExtra' ? <TurnoBehindScenes /> : <ProjectBehindScenes project={project.title} />}
       {study && <>
         <a href={`https://github.com/Costa-dias/${study.repo}`} target="_blank" rel="noreferrer" className="mt-5 text-sm text-cyan-300 underline">Código e validação no GitHub</a>
         <details className="mt-4 rounded-xl border border-white/10 p-3 text-sm text-slate-300">
@@ -844,7 +852,7 @@ function ProjectCard({
         rel="noreferrer"
         className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-cyan-300 transition group-hover:text-cyan-200"
       >
-        Acessar projeto
+        {project.title === 'Assistente de TI' ? 'Ver apresentação pública' : 'Acessar projeto'}
         <ArrowUpRight size={15} />
       </a>
     </article>
