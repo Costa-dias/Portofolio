@@ -1,3 +1,4 @@
+import { TurnoBehindScenes } from './TurnoBehindScenes';
 import { CASE_STUDIES } from './caseStudies';
 import { useEffect, useState, type ReactNode } from 'react';
 import {
@@ -825,6 +826,7 @@ function ProjectCard({
         ))}
       </div>
 
+      {project.title === 'TurnoExtra' && <TurnoBehindScenes />}
       {study && <>
         <a href={`https://github.com/Costa-dias/${study.repo}`} target="_blank" rel="noreferrer" className="mt-5 text-sm text-cyan-300 underline">Código e validação no GitHub</a>
         <details className="mt-4 rounded-xl border border-white/10 p-3 text-sm text-slate-300">
