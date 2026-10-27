@@ -836,11 +836,11 @@ function ProjectCard({
 
       {project.title === 'TurnoExtra' ? <TurnoBehindScenes /> : <ProjectBehindScenes project={project.title} />}
       {study && <>
-        <a href={`https://github.com/Costa-dias/${study.repo}`} target="_blank" rel="noreferrer" className="mt-5 text-sm text-cyan-300 underline">Código e validação no GitHub</a>
+        {study.repo && <a href={`https://github.com/Costa-dias/${study.repo}`} target="_blank" rel="noreferrer" className="mt-5 text-sm text-cyan-300 underline">{project.title === 'Assistente de TI' || project.title === 'Plataforma para Corretor de Imóveis' ? 'Apresentação pública no GitHub' : 'Código e validação no GitHub'}</a>}
         <details className="mt-4 rounded-xl border border-white/10 p-3 text-sm text-slate-300">
           <summary className="cursor-pointer font-semibold text-white">Estudo de caso</summary>
           <dl className="mt-3 space-y-3">
-            {([['Problema', study.problem], ['Decisões técnicas', study.decisions], ['Cenário de demonstração', study.example], ['Validação', study.validation], ['Limitações', study.limits]] as const).map(([label, text]) => <div key={label}><dt className="font-semibold text-cyan-300">{label}</dt><dd className="mt-1 leading-6">{text}</dd></div>)}
+            {([['Criação e evolução', study.origin], ['Problema', study.problem], ['Decisões técnicas', study.decisions], ['Cenário de demonstração', study.example], ['Validação', study.validation], ['Limitações', study.limits]] as const).map(([label, text]) => <div key={label}><dt className="font-semibold text-cyan-300">{label}</dt><dd className="mt-1 leading-6">{text}</dd></div>)}
           </dl>
           <p className="mt-3 text-xs text-slate-400">Projeto desenvolvido com apoio de IA aplicada. Os cenários ilustrativos não representam métricas de uso em produção.</p>
         </details>

@@ -8,7 +8,7 @@ Site pessoal em React/TypeScript, Vite e Tailwind CSS para apresentar trajetóri
 
 ## Projetos e estudos de caso
 
-Todos os projetos apresentados possuem demonstrações interativas com dados fictícios. O Assistente de TI aponta para sua apresentação pública, enquanto sua aplicação e código principal permanecem privados. TurnoExtra, Dashboard Finanças e FraudLens também incluem estudos de caso com problema, decisões técnicas, validação e limitações. Os cenários de demonstração são ilustrativos; não representam métricas de clientes ou de uso em produção. Capturas identificadas como demonstração usam dados fictícios.
+Todos os projetos apresentados possuem demonstrações interativas com dados fictícios. O Assistente de TI aponta para sua apresentação pública, enquanto sua aplicação e código principal permanecem privados. Todos os projetos também incluem estudos de caso com problema, decisões técnicas, validação e limitações. Os cenários de demonstração são ilustrativos; não representam métricas de clientes ou de uso em produção. Capturas identificadas como demonstração usam dados fictícios.
 
 O TurnoExtra usa IndexedDB/Web Crypto localmente; não depende de Supabase. O Honey Bee usa Supabase para catálogo e administração. Conteúdo técnico dos estudos está em `src/caseStudies.ts`.
 

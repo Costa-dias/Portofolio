@@ -1,6 +1,42 @@
-export const CASE_STUDIES: Record<string, { repo: string; problem: string; decisions: string; example: string; validation: string; limits: string }> = {
+export const CASE_STUDIES: Record<string, { repo?: string; origin: string; problem: string; decisions: string; example: string; validation: string; limits: string }> = {
+  'Assistente de TI': {
+    repo: 'projeto-web-ti-apresentacao',
+    origin: 'Nasceu de uma necessidade da minha rotina de suporte: consultar registros técnicos anteriores e relembrar procedimentos. O primeiro mecanismo usava uma planilha e o Claude; depois evoluiu para uma aplicação web independente com integração ao Gemini.',
+    problem: 'Encontrar atendimentos anteriores e reunir consultas e apoio de IA em um único ambiente de uso pessoal.',
+    decisions: 'React e TypeScript no frontend; Node.js e Express no backend, com autenticação Google, integração com planilha e consulta opcional ao Gemini. A aplicação também acompanha o consumo de tokens.',
+    example: 'Em um cenário fictício, uma busca por problema de impressão ajuda a localizar registros anteriores; a consulta à IA é opcional.',
+    validation: 'O desenvolvimento contou com apoio de IA, revisão do código e validação das alterações antes de produção.',
+    limits: 'Aplicação e registros são privados. A apresentação pública não disponibiliza código-fonte, dados ou acesso ao sistema.',
+  },
+  'HUB — Radar de Golpes': {
+    origin: 'Criado como complemento educativo ao FraudLens, para reunir orientações sobre golpes digitais e ajudar as pessoas a reconhecerem sinais de alerta.',
+    problem: 'Explicar como golpes acontecem em canais diferentes e incentivar escolhas mais seguras.',
+    decisions: 'Conteúdo organizado por categoria, fontes para consulta e quizzes com retorno após cada resposta. Interface em React, TypeScript e TanStack Start.',
+    example: 'Um cenário fictício sobre mensagem com código de verificação ajuda a refletir sobre como agir antes de compartilhar a informação.',
+    validation: 'O projeto mantém verificações automatizadas de código, compilação e execução do Worker.',
+    limits: 'Conteúdo educativo e curado manualmente; não verifica mensagens reais nem garante identificar todos os golpes.',
+  },
+  'Honey Bee': {
+    repo: 'honey-bee-catalogo',
+    origin: 'Desenvolvido para apresentar cestas em um catálogo digital e facilitar o primeiro contato de clientes interessados.',
+    problem: 'Reunir produtos e informações para que o cliente possa escolher uma cesta e solicitar um orçamento.',
+    decisions: 'Interface React e TypeScript, dados de catálogo e administração no Supabase e mensagem de orçamento revisável no WhatsApp.',
+    example: 'O cliente escolhe uma cesta, informa quantidade e preferência de entrega e confere uma mensagem antes de abrir o WhatsApp.',
+    validation: 'Testes locais cobrem o formulário de orçamento e o cálculo do subtotal com dados fictícios.',
+    limits: 'O formulário não reserva estoque nem confirma pagamento. Frete, disponibilidade e adicionais dependem da confirmação da loja.',
+  },
+  'Plataforma para Corretor de Imóveis': {
+    repo: 'Corretor-de-imoveis-vitrine',
+    origin: 'Criada para explorar uma apresentação web de imóveis e facilitar o contato de pessoas interessadas.',
+    problem: 'Organizar informações de imóveis para consulta e divulgação em uma interface web.',
+    decisions: 'A proposta reúne uma vitrine de imóveis e informações de contato em uma experiência voltada à navegação.',
+    example: 'Em um cenário fictício, uma pessoa consulta um imóvel e encontra um meio de entrar em contato.',
+    validation: 'A apresentação pública descreve o projeto; a demonstração do portfólio é ilustrativa.',
+    limits: 'O repositório público apresenta a vitrine do projeto; a demonstração não acessa cadastros reais.',
+  },
   'TurnoExtra': {
     repo: 'TurnoExtra',
+    origin: 'Criado para reunir a organização de plantões e serviços em uma agenda. Evoluiu para atender também horas extras e contratos, com controle de recebimentos e transferência revisada para o Dashboard Finanças.',
     problem: 'Organizar serviços em vários locais e acompanhar quanto foi recebido e quanto ainda falta cobrar.',
     decisions: 'React e TypeScript na interface, IndexedDB e Web Crypto no armazenamento. Recebimentos têm data e valor; conflitos consideram a virada do dia. Backup é criptografado e a restauração exige revisão.',
     example: 'Exemplo fictício: um serviço de R$ 600 com recebimento de R$ 200 mantém R$ 400 pendentes. Uma escala de 19h às 7h avisa sobre outro serviço iniciado às 6h do dia seguinte.',
@@ -9,6 +45,7 @@ export const CASE_STUDIES: Record<string, { repo: string; problem: string; decis
   },
   'Dashboard Finanças': {
     repo: 'Dashboard-Financas',
+    origin: 'Desenvolvido como uma ferramenta de controle financeiro pessoal. A solução foi ampliada com previsão, contas, transferências e importação revisada de recebimentos do TurnoExtra.',
     problem: 'Distinguir dinheiro já movimentado dos compromissos futuros, sem conectar uma conta bancária.',
     decisions: 'Transações realizadas e previstas são separadas. Contas mantêm saldo inicial; transferências movimentam contas sem virar receita ou despesa. Exportação protegida usa senha independente do PIN.',
     example: 'Exemplo fictício: saldo inicial de R$ 500, receita realizada de R$ 100 e despesa prevista de R$ 30 produzem R$ 600 realizados e R$ 570 projetados.',
@@ -17,6 +54,7 @@ export const CASE_STUDIES: Record<string, { repo: string; problem: string; decis
   },
   'FraudLens': {
     repo: 'FraudLens',
+    origin: 'Criado para ajudar na avaliação de links suspeitos antes do clique. A aplicação evoluiu para explicar os sinais encontrados, os limites das consultas e a cobertura das fontes.',
     problem: 'Explicar sinais de risco de uma URL antes que uma pessoa decida abrir o endereço.',
     decisions: 'Interface React, API FastAPI, análise estrutural e consultas a bases externas. Cobertura da consulta é separada do risco; resultado insuficiente aparece como inconclusivo.',
     example: 'Se uma base não responde ou a análise está antiga, a ferramenta informa a limitação. Prints e vídeos são usados para extrair QR Codes localmente, sem enviar arquivos ao servidor.',
