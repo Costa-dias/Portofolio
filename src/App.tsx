@@ -1,936 +1,120 @@
+import { useEffect, useState, type ReactNode } from 'react';
+import { ArrowDown, ArrowUpRight, BriefcaseBusiness, CalendarDays, Check, ChevronRight, Code2, Database, Github, GraduationCap, Linkedin, LockKeyhole, MapPin, Menu, Network, ShieldCheck, Sparkles, X } from 'lucide-react';
 import { ProjectBehindScenes } from './ProjectBehindScenes';
 import { TurnoBehindScenes } from './TurnoBehindScenes';
 import { CASE_STUDIES } from './caseStudies';
-import { useEffect, useState, type ReactNode } from 'react';
-import {
-  ArrowUpRight,
-  BriefcaseBusiness,
-  Building2,
-  CalendarDays,
-  CheckCircle2,
-  ChevronDown,
-  Coffee,
-  Database,
-  Github,
-  GraduationCap,
-  Linkedin,
-  LockKeyhole,
-  Mail,
-  MapPin,
-  Menu,
-  Network,
-  Radar,
-  Rocket,
-  ShieldCheck,
-  Sparkles,
-  UserRound,
-  WalletCards,
-  X,
-} from 'lucide-react';
 
-const GITHUB_URL = 'https://github.com/Costa-dias';
-const LINKEDIN_URL = 'https://www.linkedin.com/in/joao-vitor-tec/';
-
-const NAV_LINKS = [
-  { label: 'Sobre', href: '#sobre' },
-  { label: 'Trajetória', href: '#trajetoria' },
-  { label: 'Projetos', href: '#projetos' },
-  { label: 'Contato', href: '#contato' },
+const GITHUB = 'https://github.com/Costa-dias';
+const LINKEDIN = 'https://www.linkedin.com/in/joao-vitor-tec/';
+const NAV = [{ label: 'Projetos', href: '#projetos' }, { label: 'Sobre', href: '#sobre' }, { label: 'Formação', href: '#formacao' }, { label: 'Trajetória', href: '#trajetoria' }, { label: 'Contato', href: '#contato' }];
+type Project = { id: string; title: string; category: string; description: string; url: string; tags: string[]; icon: ReactNode; };
+const featured: Project[] = [
+  { id: 'assistente-ti', title: 'Assistente de TI', category: 'Da rotina de suporte para uma aplicação', description: 'Um ambiente privado para consultar e registrar atendimentos, encontrar ocorrências anteriores e apoiar o diagnóstico com IA opcional.', url: `${GITHUB}/projeto-web-ti-apresentacao`, tags: ['React', 'TypeScript', 'Node.js', 'Google Sheets', 'Gemini'], icon: <BriefcaseBusiness /> },
+  { id: 'fraudlens', title: 'FraudLens', category: 'Segurança digital com sinais explicados', description: 'Verificação de URLs que apresenta os sinais encontrados e a cobertura das fontes, sem transformar falta de informação em garantia de segurança.', url: 'https://fraudlens-code.onrender.com/', tags: ['React', 'Python', 'FastAPI', 'APIs de segurança'], icon: <ShieldCheck /> },
+  { id: 'turnoextra', title: 'TurnoExtra', category: 'Organização de serviços e recebimentos', description: 'Agenda para plantões e serviços, com controle de recebimentos parciais, conflitos de horário e acompanhamento de cobranças.', url: 'https://gestao-de-plantao.onrender.com/', tags: ['React', 'TypeScript', 'IndexedDB', 'Web Crypto'], icon: <CalendarDays /> },
 ];
-
-type Project = {
-  title: string;
-  description: string;
-  url: string;
-  icon: ReactNode;
-  tags: string[];
+const complementary: Project[] = [
+  { id: 'dashboard-financas', title: 'Dashboard Finanças', category: 'Controle financeiro pessoal', description: 'Lançamentos realizados e previstos, contas, transferências e importação revisada dos recebimentos do TurnoExtra.', url: 'https://dashboard-financas-rfv6.onrender.com/', tags: ['React', 'TypeScript', 'Dados locais'], icon: <Database /> },
+  { id: 'corretor-imoveis', title: 'Plataforma para Corretor de Imóveis', category: 'Catálogo e gestão de anúncios', description: 'Apresentação de imóveis, administração de cadastros e contato com o corretor. Código principal privado, com apresentação pública.', url: 'https://corretor-imoveis-frontend.onrender.com/', tags: ['React', 'Python', 'APIs'], icon: <BriefcaseBusiness /> },
+  { id: 'radar-golpes', title: 'HUB — Radar de Golpes', category: 'Educação em segurança digital', description: 'Conteúdo organizado por tipo de golpe, fontes de consulta e quizzes com explicações para reconhecer sinais de alerta.', url: 'https://radar-de-golpes-hub.xadoondias.workers.dev/', tags: ['React', 'TypeScript', 'Cloudflare'], icon: <ShieldCheck /> },
+  { id: 'honey-bee', title: 'Honey Bee', category: 'Catálogo e orçamento de cestas', description: 'Catálogo digital, painel administrativo e preparação de uma mensagem de orçamento para revisão antes de abrir o WhatsApp.', url: 'https://honey-bee-catalogo.onrender.com/', tags: ['React', 'TypeScript', 'Supabase'], icon: <Sparkles /> },
+];
+type Evidence = { problem: string; solution: string; flow: string[]; verification: string; links: { label: string; href: string }[]; post?: string; };
+const evidence: Record<string, Evidence> = {
+  'assistente-ti': {
+    problem: 'Consultar registros técnicos e relembrar procedimentos exigia alternar entre planilha e ferramentas de IA.',
+    solution: 'Reuni busca local, registros de OS e consulta opcional ao Gemini em uma aplicação com acesso restrito.',
+    flow: ['Registros técnicos', 'Busca e recorrências', 'IA após revisão'],
+    verification: 'A apresentação técnica e a publicação do projeto documentam sua origem, integrações e evolução. A demonstração abaixo usa dados fictícios e não acessa a base privada.',
+    links: [{ label: 'Apresentação técnica', href: `${GITHUB}/projeto-web-ti-apresentacao` }],
+    post: 'https://www.linkedin.com/feed/update/urn:li:activity:7516202206690275328/',
+  },
+  fraudlens: {
+    problem: 'Um link pode parecer legítimo, e uma base sem resposta não confirma que ele seja seguro.',
+    solution: 'Separei risco, cobertura das consultas e evidências, com resultado inconclusivo quando faltam informações.',
+    flow: ['URL informada', 'Sinais e fontes', 'Resultado explicado'],
+    verification: 'O repositório contém testes da API para fontes indisponíveis, relatórios antigos, limites de consulta e privacidade dos logs. São testes com serviços simulados, não uma garantia sobre qualquer link.',
+    links: [{ label: 'Código da análise', href: `${GITHUB}/FraudLens/blob/main/server/main.py` }, { label: 'Testes da API', href: `${GITHUB}/FraudLens/blob/main/server/test_api.py` }],
+  },
+  turnoextra: {
+    problem: 'Organizar serviços no calendário do celular não resolvia o acompanhamento dos valores combinados e recebidos.',
+    solution: 'Criei uma agenda com recebimentos parciais, saldo pendente, relatórios e dados criptografados no navegador.',
+    flow: ['Serviço registrado', 'Recebimentos parciais', 'Saldo a acompanhar'],
+    verification: 'Os testes de domínio verificam recebimentos, conflitos na virada do dia, backup criptografado e exportação de calendário. Você pode experimentar um recebimento fictício na demonstração.',
+    links: [{ label: 'Regras de recebimento', href: `${GITHUB}/TurnoExtra/blob/main/src/lib/receivables.ts` }, { label: 'Testes de domínio', href: `${GITHUB}/TurnoExtra/blob/main/tests/domain.test.mjs` }],
+    post: 'https://www.linkedin.com/feed/update/urn:li:activity:7512629059332321280/',
+  },
 };
-
-const PROJECTS: Project[] = [
-  {
-    title: 'Assistente de TI',
-    description: 'Aplicação privada de uso pessoal que evoluiu de consultas a registros técnicos para um ambiente web com busca de OS, recorrências e apoio opcional do Gemini. Desenvolvida com apoio de IA, revisão e validação do código.',
-    url: 'https://github.com/Costa-dias/projeto-web-ti-apresentacao',
-    icon: <BriefcaseBusiness size={22} />,
-    tags: ['Projeto privado', 'React', 'Google Sheets', 'Gemini'],
-  },
-  {
-    title: 'FraudLens',
-    description:
-      'Verificação de URLs com sinais explicados e cobertura das bases externas. Extrai QR Codes de imagens e vídeos no próprio aparelho.',
-    url: 'https://fraudlens-code.onrender.com/',
-    icon: <ShieldCheck size={22} />,
-    tags: ['Segurança', 'React', 'Python', 'API'],
-  },
-  {
-    title: 'Dashboard Finanças',
-    description:
-      'Aplicação para controle financeiro pessoal, com dashboard, categorias, gráficos, lançamentos e recursos voltados à privacidade dos dados.',
-    url: 'https://dashboard-financas-rfv6.onrender.com/',
-    icon: <WalletCards size={22} />,
-    tags: ['React', 'TypeScript', 'Dashboard', 'Segurança'],
-  },
-  {
-    title: 'TurnoExtra',
-    description:
-      'Sistema para organização e gerenciamento de serviços e plantões, pensado para facilitar o controle de escalas e informações operacionais.',
-    url: 'https://gestao-de-plantao.onrender.com/',
-    icon: <CalendarDays size={22} />,
-    tags: ['React', 'TypeScript', 'IndexedDB', 'Web Crypto'],
-  },
-  {
-    title: 'Plataforma para Corretor de Imóveis',
-    description:
-      'Solução web voltada para apresentação e organização de imóveis, facilitando a divulgação e o contato com potenciais clientes.',
-    url: 'https://corretor-imoveis-frontend.onrender.com/',
-    icon: <Building2 size={22} />,
-    tags: ['Web', 'Frontend', 'UX', 'Negócios'],
-  },
-  {
-    title: 'HUB — Radar de Golpes',
-    description:
-      'Projeto focado em centralizar informações e referências relacionadas a golpes, fraudes e segurança digital.',
-    url: 'https://radar-de-golpes-hub.xadoondias.workers.dev/',
-    icon: <Radar size={22} />,
-    tags: ['Cybersecurity', 'Informação', 'Web'],
-  },
-  {
-    title: 'Honey Bee',
-    description:
-      'Catálogo digital interativo desenvolvido para apresentar produtos de forma simples, visual e acessível ao cliente.',
-    url: 'https://honey-bee-catalogo.onrender.com/',
-    icon: <Coffee size={22} />,
-    tags: ['Web', 'Catálogo', 'Frontend'],
-  },
+type Experience = { period: string; role: string; company: string; description: string; current?: boolean; type: string; };
+const experiences: Experience[] = [
+  { period: 'nov/2025 — atual', role: 'Auxiliar de Suporte de TI', company: 'Plano Santa Saúde · Hospital Infantil Gonzaga', type: 'Tempo integral · Santos/SP', current: true, description: 'Suporte N1/N2 presencial e remoto, diagnóstico de incidentes, hardware, software, redes e periféricos. Suporte ao ERP hospitalar MV SOUL, administração de usuários, perfis e permissões, apoio a cadastros e vínculos e validação das soluções com os setores.' },
+  { period: 'set/2026 — atual', role: 'Suporte técnico · prestação de serviços', company: 'Atendimento às unidades da Biomega Medicina Diagnóstica', type: 'Freelance · Baixada Santista', current: true, description: 'Suporte em infraestrutura nas unidades: instalação e configuração de impressoras de rede e locais, mapeamento de unidades de rede, adequação da infraestrutura local e instalação, configuração e manutenção do sistema proprietário Biomega nas estações de trabalho.' },
+  { period: 'mai/2022 — nov/2025', role: 'Auxiliar de Atendimento Pleno', company: 'Associação Santa Saúde', type: 'Atendimento e rotinas administrativas', description: 'Atendimento e apoio de primeiro nível aos sistemas hospitalares na recepção, com identificação e encaminhamento de problemas técnicos recorrentes à equipe de TI.' },
+  { period: 'jan/2024', role: 'Assistente de suporte de TI', company: 'BenTech', type: 'Autônomo · Praia Grande/SP', description: 'Suporte técnico, manutenção de sistemas e atendimento interno.' },
+  { period: 'fev/2019 — mai/2022', role: 'Atendente de recepção', company: 'Santa Casa de Santos', type: 'Tempo integral', description: 'Atendimento administrativo, laboratorial e de pronto-socorro, com uso de sistemas hospitalares e apoio à rotina interna.' },
+  { period: 'jan/2017 — mar/2018', role: 'Auxiliar de Atendimento Interno e Externo', company: 'Exército Brasileiro · FUSEX', type: 'Experiência profissional', description: 'Apoio à área de computação e ao agendamento de serviços, desenvolvendo organização, disciplina e responsabilidade.' },
 ];
-
-function useReveal() {
-  useEffect(() => {
-    const elements = document.querySelectorAll('[data-reveal]');
-
-    if (!elements.length) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        threshold: 0.12,
-      }
-    );
-
-    elements.forEach((element) => observer.observe(element));
-
-    return () => observer.disconnect();
-  }, []);
+function External({ href, children, className = '' }: { href: string; children: ReactNode; className?: string }) {
+  return <a href={href} target="_blank" rel="noopener noreferrer" className={className}>{children}<ArrowUpRight size={15} aria-hidden="true" /><span className="sr-only"> (abre em nova aba)</span></a>;
 }
-
-function useActiveSection() {
-  const [activeSection, setActiveSection] = useState('sobre');
-
-  useEffect(() => {
-    const sections = NAV_LINKS.map((item) =>
-      document.querySelector(item.href)
-    ).filter(Boolean) as Element[];
-
-    if (!sections.length) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-
-        if (visible[0]) {
-          setActiveSection(visible[0].target.id);
-        }
-      },
-      {
-        rootMargin: '-30% 0px -55% 0px',
-        threshold: [0.1, 0.25, 0.5],
-      }
-    );
-
-    sections.forEach((section) => observer.observe(section));
-
-    return () => observer.disconnect();
-  }, []);
-
-  return activeSection;
+function Header() {
+  const [open, setOpen] = useState(false);
+  useEffect(() => { if (!open) return; const close = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false); }; window.addEventListener('keydown', close); return () => window.removeEventListener('keydown', close); }, [open]);
+  return <header className="site-header"><div className="shell header-inner">
+    <a href="#inicio" className="wordmark" onClick={() => setOpen(false)}>João Vitor<span>.</span><small>Suporte & sistemas</small></a>
+    <nav className="desktop-nav" aria-label="Principal">{NAV.map(n => <a key={n.href} href={n.href}>{n.label}</a>)}</nav>
+    <External href={LINKEDIN} className="header-contact">Vamos conversar</External>
+    <button className="mobile-toggle" type="button" aria-label={open ? 'Fechar menu' : 'Abrir menu'} aria-expanded={open} aria-controls="mobile-nav" onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</button>
+  </div>{open && <nav id="mobile-nav" className="mobile-nav shell" aria-label="Principal no celular">{NAV.map(n => <a key={n.href} href={n.href} onClick={() => setOpen(false)}>{n.label}<ChevronRight size={15} /></a>)}</nav>}</header>;
 }
-
-function SocialLinks({ className = '' }: { className?: string }) {
-  return (
-    <ul className={'flex items-center gap-3 ' + className}>
-      <li>
-        <a
-          href={GITHUB_URL}
-          target="_blank"
-          rel="noreferrer"
-          aria-label="GitHub"
-          className="group flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] text-slate-400 transition hover:border-cyan-400/40 hover:bg-cyan-400/10 hover:text-cyan-300"
-        >
-          <Github size={18} />
-        </a>
-      </li>
-
-      <li>
-        <a
-          href={LINKEDIN_URL}
-          target="_blank"
-          rel="noreferrer"
-          aria-label="LinkedIn"
-          className="group flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] text-slate-400 transition hover:border-cyan-400/40 hover:bg-cyan-400/10 hover:text-cyan-300"
-        >
-          <Linkedin size={18} />
-        </a>
-      </li>
-    </ul>
-  );
-}
-
-function SectionHeading({
-  eyebrow,
-  title,
-  description,
-}: {
-  eyebrow: string;
-  title: string;
-  description?: string;
-}) {
-  return (
-    <div data-reveal className="mb-12 max-w-3xl reveal">
-      <span className="mb-3 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-cyan-300">
-        <span className="h-px w-7 bg-cyan-400" />
-        {eyebrow}
-      </span>
-
-      <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-        {title}
-      </h2>
-
-      {description && (
-        <p className="mt-4 text-base leading-7 text-slate-400">
-          {description}
-        </p>
-      )}
+function Hero() {
+  return <section id="inicio" className="hero shell">
+    <div className="hero-copy"><p className="eyebrow"><span /> Profissional de TI · Baixada Santista/SP</p>
+      <h1>Entender o problema.<br /><span>Construir a solução.</span></h1>
+      <p className="hero-description">Sou <strong>João Vitor</strong>. Atuo com suporte N1/N2, infraestrutura e o ERP hospitalar MV SOUL. Também desenvolvo aplicações web com apoio de IA, revisão do código e validação dos fluxos.</p>
+      <div className="actions"><a href="#projetos" className="action primary">Explorar projetos <ArrowDown size={17} /></a><a href="#trajetoria" className="action secondary">Conhecer minha trajetória <ArrowUpRight size={16} /></a></div>
+      <div className="hero-notes"><span><Network size={15} /> Suporte e acessos</span><span><Database size={15} /> Sistemas hospitalares</span><span><GraduationCap size={15} /> ADS em andamento</span></div>
     </div>
-  );
+    <aside className="hero-aside" aria-label="Minha atuação"><span className="aside-label">NA PRÁTICA</span><div><BriefcaseBusiness /><h2>Da operação<br />à aplicação.</h2><p>A experiência com usuários e sistemas orienta as soluções que desenvolvo.</p></div><a href="#projetos">Conheça os projetos <ArrowUpRight size={17} /></a></aside>
+  </section>;
 }
-
-function App() {
-  useReveal();
-
-  return (
-    <div className="min-h-screen bg-[#070b12] text-slate-200 selection:bg-cyan-400/30 selection:text-white">
-      <style>{`
-        html {
-          scroll-behavior: smooth;
-        }
-
-        body {
-          margin: 0;
-          background: #070b12;
-        }
-
-        .reveal {
-          opacity: 0;
-          transform: translateY(24px);
-          transition:
-            opacity 700ms ease,
-            transform 700ms ease;
-        }
-
-        .reveal.is-visible {
-          opacity: 1;
-          transform: translateY(0);
-        }
-
-        .grid-background {
-          background-image:
-            linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-          background-size: 42px 42px;
-        }
-
-        .glow {
-          box-shadow:
-            0 0 0 1px rgba(34,211,238,0.08),
-            0 0 60px rgba(34,211,238,0.06);
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          html { scroll-behavior: auto; }
-          .reveal { opacity: 1; transform: none; transition: none; }
-          .animate-bounce, .animate-pulse { animation: none; }
-        }
-        .text-gradient {
-          background: linear-gradient(
-            90deg,
-            #67e8f9,
-            #22d3ee,
-            #a5f3fc
-          );
-          -webkit-background-clip: text;
-          background-clip: text;
-          color: transparent;
-        }
-      `}</style>
-
-      <Navbar />
-
-      <main>
-        <Intro />
-        <Sobre />
-        <Trajetoria />
-        <Projects />
-        <Contact />
-      </main>
-
-      <Footer />
+function SectionTitle({ label, title, text }: { label: string; title: string; text?: string }) { return <div className="section-heading"><p className="eyebrow">{label}</p><h2>{title}</h2>{text && <p>{text}</p>}</div>; }
+function CaseStudy({ title }: { title: string }) {
+  const s = CASE_STUDIES[title]; if (!s) return null;
+  return <details className="case-study"><summary>Criação, decisões e limites <span aria-hidden="true">+</span></summary><dl>{([['Criação e evolução', s.origin], ['Decisões técnicas', s.decisions], ['Cenário ilustrativo', s.example], ['Validação', s.validation], ['Limitações', s.limits]] as const).map(([label, text]) => <div key={label}><dt>{label}</dt><dd>{text}</dd></div>)}</dl></details>;
+}
+function FeaturedProject({ project, index }: { project: Project; index: number }) {
+  const ev = evidence[project.id];
+  return <article id={project.id} className="featured-project" aria-labelledby={`${project.id}-title`}>
+    <div className="project-overview"><div className="project-topline"><span className="project-index">0{index + 1}</span><span className="project-icon" aria-hidden="true">{project.icon}</span></div><p className="project-category">{project.category}</p><h3 id={`${project.id}-title`}>{project.title}</h3><p className="project-description">{project.description}</p><ul className="tags" aria-label="Tecnologias">{project.tags.map(t => <li key={t}>{t}</li>)}</ul>
+      <div className="project-actions">{project.id === 'turnoextra' ? <TurnoBehindScenes /> : <ProjectBehindScenes project={project.title} />}<External className="text-link" href={project.url}>{project.id === 'assistente-ti' ? 'Ver apresentação pública' : 'Abrir aplicação'}</External></div>
     </div>
-  );
+    <div className="project-evidence"><div className="project-flow" aria-label="Fluxo do projeto">{ev.flow.map((s, i) => <span key={s}><small>0{i + 1}</small>{s}{i < ev.flow.length - 1 && <ChevronRight size={14} aria-hidden="true" />}</span>)}</div>
+      <div className="project-story"><div><h4>O problema</h4><p>{ev.problem}</p></div><div><h4>O que construí</h4><p>{ev.solution}</p></div></div>
+      <div className="evidence-block"><h4><Check size={15} aria-hidden="true" /> Evidências para conferir</h4><p>{ev.verification}</p><div className="evidence-links">{ev.links.map(l => <External href={l.href} key={l.href}>{l.label}</External>)}{ev.post && <External href={ev.post}>Publicação no LinkedIn</External>}</div></div>
+      <CaseStudy title={project.title} />
+    </div>
+  </article>;
 }
-
-function Navbar() {
-  const activeSection = useActiveSection();
-  const [mobileOpen, setMobileOpen] = useState(false);
-
-  return (
-    <header className="fixed left-0 right-0 top-0 z-50 border-b border-white/5 bg-[#070b12]/80 backdrop-blur-xl">
-      <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-5 lg:px-8">
-        <a
-          href="#inicio"
-          className="flex items-center gap-3"
-          onClick={() => setMobileOpen(false)}
-        >
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-cyan-400/20 bg-cyan-400/10 text-cyan-300">
-            <Rocket size={19} />
-          </div>
-
-          <div>
-            <p className="text-sm font-bold text-white">João Vitor</p>
-            <p className="text-[11px] text-slate-500">Profissional de TI</p>
-          </div>
-        </a>
-
-        <nav className="hidden md:block">
-          <ul className="flex items-center gap-7">
-            {NAV_LINKS.map((item) => {
-              const id = item.href.replace('#', '');
-              const active = activeSection === id;
-
-              return (
-                <li key={item.href}>
-                  <a
-                    href={item.href}
-                    className={
-                      'relative text-sm transition ' +
-                      (active
-                        ? 'text-cyan-300'
-                        : 'text-slate-400 hover:text-white')
-                    }
-                  >
-                    {item.label}
-
-                    {active && (
-                      <span className="absolute -bottom-2 left-0 h-px w-full bg-cyan-400" />
-                    )}
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
-
-        <div className="hidden md:block">
-          <SocialLinks />
-        </div>
-
-        <button
-          type="button"
-          aria-label={mobileOpen ? 'Fechar menu' : 'Abrir menu'}
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 text-slate-300 md:hidden"
-        >
-          {mobileOpen ? <X size={20} /> : <Menu size={20} />}
-        </button>
-      </div>
-
-      {mobileOpen && (
-        <div className="border-t border-white/5 bg-[#070b12]/95 px-5 py-5 md:hidden">
-          <nav>
-            <ul className="space-y-2">
-              {NAV_LINKS.map((item) => (
-                <li key={item.href}>
-                  <a
-                    href={item.href}
-                    onClick={() => setMobileOpen(false)}
-                    className="block rounded-lg px-3 py-3 text-sm text-slate-300 transition hover:bg-white/5 hover:text-cyan-300"
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-
-          <SocialLinks className="mt-4" />
-        </div>
-      )}
-    </header>
-  );
-}
-
-function Intro() {
-  return (
-    <section
-      id="inicio"
-      className="grid-background relative flex min-h-screen items-center overflow-hidden pt-20"
-    >
-      <div className="absolute left-1/2 top-1/4 h-72 w-72 -translate-x-1/2 rounded-full bg-cyan-400/10 blur-[120px]" />
-
-      <div className="mx-auto w-full max-w-6xl px-5 py-20 lg:px-8">
-        <div className="max-w-4xl">
-          <div
-            data-reveal
-            className="reveal mb-6 inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/5 px-4 py-2 text-xs font-medium text-cyan-300"
-          >
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-cyan-300" />
-            Profissional de TI • Santos/SP
-          </div>
-
-          <h1
-            data-reveal
-            className="reveal text-5xl font-bold leading-[1.05] tracking-tight text-white sm:text-6xl lg:text-7xl"
-          >
-            Tecnologia para
-            <br />
-            <span className="text-gradient">resolver problemas.</span>
-          </h1>
-
-          <p
-            data-reveal
-            className="reveal mt-7 max-w-2xl text-lg leading-8 text-slate-400 sm:text-xl"
-          >
-            Profissional de TI focado na resolução de problemas, atuando desde
-            o suporte técnico até o desenvolvimento de soluções.
-          </p>
-
-          <div data-reveal className="reveal mt-9 flex flex-wrap gap-3">
-            <a
-              href="#projetos"
-              className="inline-flex items-center gap-2 rounded-xl bg-cyan-400 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-300"
-            >
-              Ver projetos
-              <ArrowUpRight size={17} />
-            </a>
-
-            <a
-              href="#contato"
-              className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-5 py-3 text-sm font-semibold text-white transition hover:border-cyan-400/30 hover:bg-cyan-400/5"
-            >
-              Entrar em contato
-            </a>
-          </div>
-
-          <div
-            data-reveal
-            className="reveal mt-14 flex flex-wrap gap-x-7 gap-y-4 text-sm text-slate-500"
-          >
-            <span className="flex items-center gap-2">
-              <CheckCircle2 size={16} className="text-cyan-400" />
-              Suporte N1/N2
-            </span>
-
-            <span className="flex items-center gap-2">
-              <CheckCircle2 size={16} className="text-cyan-400" />
-              Redes e acessos
-            </span>
-
-            <span className="flex items-center gap-2">
-              <CheckCircle2 size={16} className="text-cyan-400" />
-              Desenvolvimento Web
-            </span>
-
-            <span className="flex items-center gap-2">
-              <CheckCircle2 size={16} className="text-cyan-400" />
-              Automação
-            </span>
-          </div>
-        </div>
-
-        <div className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-xs text-slate-600 sm:flex">
-          <span>Role para explorar</span>
-          <ChevronDown size={16} className="animate-bounce" />
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Sobre() {
-  const skills = [
-    {
-      icon: <UserRound size={19} />,
-      title: 'Suporte N1/N2',
-      text: 'Atendimento presencial e remoto, diagnóstico e resolução de incidentes.',
-    },
-    {
-      icon: <Network size={19} />,
-      title: 'Redes e acessos',
-      text: 'Rotinas de rede, permissões, acessos e suporte à infraestrutura.',
-    },
-    {
-      icon: <Database size={19} />,
-      title: 'Sistemas e dados',
-      text: 'Atuação com sistemas corporativos, banco de dados e análise de processos.',
-    },
-    {
-      icon: <Sparkles size={19} />,
-      title: 'Desenvolvimento',
-      text: 'Criação de aplicações web e soluções com IA aplicada.',
-    },
-  ];
-
-  const courses = [
-    {
-      icon: <ShieldCheck size={18} />,
-      title: 'Cybersecurity',
-      institution: 'Hackers do Bem • 2024',
-    },
-    {
-      icon: <Database size={18} />,
-      title: 'Análise de Dados e Administração de Banco de Dados',
-      institution: 'Fundação Bradesco • 2026',
-    },
-    {
-      icon: <BriefcaseBusiness size={18} />,
-      title: 'Tecnologia da Informação e Comunicação',
-      institution: 'Fundação Bradesco • 2024',
-    },
-    {
-      icon: <LockKeyhole size={18} />,
-      title: 'Lei Geral de Proteção de Dados (LGPD)',
-      institution: 'Fundação Bradesco • 2023',
-    },
-  ];
-
-  return (
-    <section id="sobre" className="border-t border-white/5 py-28">
-      <div className="mx-auto max-w-6xl px-5 lg:px-8">
-        <SectionHeading
-          eyebrow="Sobre mim"
-          title="Quem é João Vitor?"
-          description="Profissional de TI focado na resolução de problemas, atuando desde o suporte técnico até o desenvolvimento de soluções."
-        />
-
-        <div className="grid gap-12 lg:grid-cols-[1.05fr_.95fr]">
-          <div data-reveal className="reveal">
-            <div className="rounded-2xl border border-white/10 bg-white/[0.025] p-7 glow">
-              <p className="text-base leading-8 text-slate-300">
-                Atuo com{' '}
-                <strong className="font-semibold text-white">
-                  suporte N1/N2 presencial e remoto
-                </strong>
-                , redes, administração de acessos e permissões e suporte ao
-                sistema hospitalar MV Soul.
-              </p>
-
-              <p className="mt-5 text-base leading-8 text-slate-300">
-                Também atuo com{' '}
-                <strong className="font-semibold text-white">
-                  desenvolvimento web com IA aplicada
-                </strong>
-                , análise de requisitos e processos e automação de processos,
-                buscando sempre soluções mais eficientes para as necessidades
-                do negócio.
-              </p>
-
-              <div className="mt-8 flex items-center gap-3 border-t border-white/10 pt-6 text-sm text-slate-400">
-                <MapPin size={17} className="text-cyan-400" />
-                Praia Grande, São Paulo — Brasil
-              </div>
-            </div>
-          </div>
-
-          <div
-            data-reveal
-            className="reveal grid gap-4 sm:grid-cols-2"
-          >
-            {skills.map((skill) => (
-              <div
-                key={skill.title}
-                className="rounded-2xl border border-white/10 bg-white/[0.025] p-5 transition hover:border-cyan-400/20 hover:bg-cyan-400/[0.03]"
-              >
-                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-400/10 text-cyan-300">
-                  {skill.icon}
-                </div>
-
-                <h3 className="font-semibold text-white">{skill.title}</h3>
-
-                <p className="mt-2 text-sm leading-6 text-slate-500">
-                  {skill.text}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div data-reveal className="reveal mt-16">
-          <div className="mb-6 flex items-center gap-3">
-            <GraduationCap size={20} className="text-cyan-300" />
-
-            <div>
-              <h3 className="text-xl font-bold text-white">
-                Formação complementar
-              </h3>
-
-              <p className="mt-1 text-sm text-slate-500">
-                Conhecimentos selecionados que complementam minha atuação em TI.
-              </p>
-            </div>
-          </div>
-
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {courses.map((course) => (
-              <div
-                key={course.title}
-                className="rounded-xl border border-white/10 bg-white/[0.02] p-4 transition hover:border-cyan-400/20"
-              >
-                <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-lg bg-cyan-400/10 text-cyan-300">
-                  {course.icon}
-                </div>
-
-                <h4 className="text-sm font-semibold leading-5 text-white">
-                  {course.title}
-                </h4>
-
-                <p className="mt-2 text-xs leading-5 text-slate-500">
-                  {course.institution}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-type Milestone = {
-  period: string;
-  title: string;
-  company: string;
-  description: string;
-  icon: ReactNode;
-};
-
-const TRAJETORIA: Milestone[] = [
-  {
-    period: 'jan/2017 – mar/2018',
-    title: 'Auxiliar de Atendimento Interno e Externo',
-    company: 'Exército Brasileiro (FUSEX)',
-    description:
-      'Apoio à área de computação e ao agendamento de serviços, desenvolvendo disciplina, organização, responsabilidade e capacidade de trabalhar sob pressão.',
-    icon: <BriefcaseBusiness size={19} />,
-  },
-  {
-    period: 'fev/2021 – mai/2022',
-    title: 'Recepcionista',
-    company: 'Santa Casa de Santos',
-    description:
-      'Atendimento administrativo nos setores de pronto-socorro e laboratório, com suporte aos sistemas hospitalares e atuação em rotina de alto volume.',
-    icon: <Building2 size={19} />,
-  },
-  {
-    period: 'mai/2022 – nov/2025',
-    title: 'Auxiliar de Atendimento Pleno',
-    company: 'Associação Santa Saúde',
-    description:
-      'Atendimento e suporte de primeiro nível na recepção aos sistemas hospitalares integrados, sustentando a rotina administrativa da unidade e apoiando a equipe de TI na identificação e encaminhamento de problemas técnicos recorrentes.',
-    icon: <UserRound size={19} />,
-  },
-  {
-    period: 'jan/2024 – fev/2024',
-    title: 'Assistente de Suporte de T.I. (autônomo)',
-    company: 'BenTech',
-    description:
-      'Suporte técnico e manutenção preventiva e corretiva de sistemas e computadores, com apoio à implementação de soluções de infraestrutura.',
-    icon: <Network size={19} />,
-  },
-  {
-    period: 'dez/2025 – atual',
-    title: 'Auxiliar de Suporte T.I.',
-    company: 'Associação Santa Saúde — Hospital Infantil Gonzaga',
-    description:
-      'Suporte técnico N1/N2 aos usuários da unidade hospitalar, com atendimento presencial e remoto, suporte a hardware, software e rede, administração de acessos e permissões no MV SOUL Hospitalar e manutenção de estações e periféricos. Promovido da recepção para a equipe oficial de TI após assumir de forma proativa o suporte técnico interno.',
-    icon: <Rocket size={19} />,
-  },
-];
-
-function Trajetoria() {
-  return (
-    <section id="trajetoria" className="border-t border-white/5 py-28">
-      <div className="mx-auto max-w-5xl px-5 lg:px-8">
-        <SectionHeading
-          eyebrow="Trajetória"
-          title="Da recepção à TI."
-          description="Uma trajetória construída na prática, começando pelo atendimento e evoluindo para suporte técnico, infraestrutura e desenvolvimento de soluções."
-        />
-
-        <div className="relative">
-          <div className="absolute bottom-0 left-[19px] top-0 w-px bg-gradient-to-b from-cyan-400/40 via-white/10 to-transparent" />
-
-          <div className="space-y-8">
-            {TRAJETORIA.map((item, index) => (
-              <div
-                key={item.period + item.title}
-                data-reveal
-                className="reveal relative pl-14"
-                style={{ transitionDelay: `${index * 80}ms` }}
-              >
-                <div className="absolute left-0 top-1 flex h-10 w-10 items-center justify-center rounded-full border border-cyan-400/20 bg-[#070b12] text-cyan-300">
-                  {item.icon}
-                </div>
-
-                <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 transition hover:border-cyan-400/20">
-                  <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
-                    <div>
-                      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-cyan-300">
-                        {item.period}
-                      </p>
-
-                      <h3 className="mt-2 text-xl font-bold text-white">
-                        {item.title}
-                      </h3>
-
-                      <p className="mt-1 text-sm font-medium text-slate-400">
-                        {item.company}
-                      </p>
-                    </div>
-
-                    <span className="inline-flex w-fit items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-xs text-slate-500">
-                      <CalendarDays size={13} />
-                      Experiência profissional
-                    </span>
-                  </div>
-
-                  <p className="mt-5 max-w-3xl text-sm leading-7 text-slate-400">
-                    {item.description}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div
-          data-reveal
-          className="reveal mt-12 rounded-2xl border border-cyan-400/10 bg-cyan-400/[0.03] p-6"
-        >
-          <div className="flex items-start gap-4">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-cyan-400/10 text-cyan-300">
-              <Sparkles size={19} />
-            </div>
-
-            <div>
-              <h3 className="font-semibold text-white">
-                Evolução profissional
-              </h3>
-
-              <p className="mt-2 text-sm leading-7 text-slate-400">
-                A experiência em atendimento e ambiente hospitalar proporcionou
-                conhecimento dos processos e das necessidades dos usuários,
-                experiência que hoje é aplicada diretamente na atuação em TI,
-                suporte, sistemas e análise de processos.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Badge({ children }: { children: ReactNode }) {
-  return (
-    <span className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-[11px] font-medium text-slate-400">
-      {children}
-    </span>
-  );
-}
-
 function Projects() {
-  return (
-    <section id="projetos" className="border-t border-white/5 py-28">
-      <div className="mx-auto max-w-6xl px-5 lg:px-8">
-        <SectionHeading
-          eyebrow="Projetos"
-          title="Projetos que mostram na prática."
-          description="Soluções desenvolvidas para resolver problemas reais, explorar tecnologia e transformar ideias em aplicações funcionais."
-        />
-
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {PROJECTS.map((project, index) => (
-            <ProjectCard
-              key={project.title}
-              project={project}
-              index={index}
-            />
-          ))}
-        </div>
-      </div>
-    </section>
-  );
+  return <section id="projetos" className="section shell"><SectionTitle label="Projetos em foco" title="Problemas reais. Soluções em evolução." text="Três projetos que conectam minha rotina, meus estudos e a aplicação prática de tecnologia. Explore a origem, as decisões e os limites de cada um." />
+    <div className="featured-list">{featured.map((p, i) => <FeaturedProject project={p} index={i} key={p.id} />)}</div>
+    <div className="complementary"><div className="complementary-heading"><h3>Projetos complementares</h3><p>Outras aplicações que desenvolvi para explorar necessidades diferentes.</p></div><div className="complementary-grid">{complementary.map(p => <article id={p.id} className="small-project" key={p.id}><div className="small-project-heading"><span aria-hidden="true">{p.icon}</span><span>{p.category}</span></div><h4>{p.title}</h4><p>{p.description}</p><ul className="tags">{p.tags.map(t => <li key={t}>{t}</li>)}</ul><ProjectBehindScenes project={p.title} /><CaseStudy title={p.title} /><div className="small-project-links"><External href={p.url}>Abrir projeto</External>{CASE_STUDIES[p.title]?.repo && <External href={`${GITHUB}/${CASE_STUDIES[p.title].repo}`}>{p.id === 'corretor-imoveis' ? 'Apresentação' : 'Código'}</External>}</div></article>)}</div></div>
+  </section>;
 }
-
-function ProjectCard({
-  project,
-  index,
-}: {
-  project: Project;
-  index: number;
-}) {
-  const study = CASE_STUDIES[project.title];
-  return (
-    <article
-      data-reveal
-      className="reveal group flex h-full flex-col rounded-2xl border border-white/10 bg-white/[0.025] p-6 transition duration-300 hover:-translate-y-1 hover:border-cyan-400/20 hover:bg-cyan-400/[0.025]"
-      style={{ transitionDelay: `${index * 70}ms` }}
-    >
-      <div className="flex items-start justify-between gap-4">
-        <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-cyan-400/10 bg-cyan-400/10 text-cyan-300">
-          {project.icon}
-        </div>
-
-        <a
-          href={project.url}
-          target="_blank"
-          rel="noreferrer"
-          aria-label={`Abrir ${project.title}`}
-          className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 text-slate-500 transition hover:border-cyan-400/30 hover:text-cyan-300"
-        >
-          <ArrowUpRight size={17} />
-        </a>
-      </div>
-
-      <h3 className="mt-6 text-xl font-bold text-white">
-        {project.title}
-      </h3>
-
-      <p className="mt-3 flex-1 text-sm leading-7 text-slate-500">
-        {project.description}
-      </p>
-
-      <div className="mt-6 flex flex-wrap gap-2">
-        {project.tags.map((tag) => (
-          <Badge key={tag}>{tag}</Badge>
-        ))}
-      </div>
-
-      {project.title === 'TurnoExtra' ? <TurnoBehindScenes /> : <ProjectBehindScenes project={project.title} />}
-      {study && <>
-        {study.repo && <a href={`https://github.com/Costa-dias/${study.repo}`} target="_blank" rel="noreferrer" className="mt-5 text-sm text-cyan-300 underline">{project.title === 'Assistente de TI' || project.title === 'Plataforma para Corretor de Imóveis' ? 'Apresentação pública no GitHub' : 'Código e validação no GitHub'}</a>}
-        <details className="mt-4 rounded-xl border border-white/10 p-3 text-sm text-slate-300">
-          <summary className="cursor-pointer font-semibold text-white">Estudo de caso</summary>
-          <dl className="mt-3 space-y-3">
-            {([['Criação e evolução', study.origin], ['Problema', study.problem], ['Decisões técnicas', study.decisions], ['Cenário de demonstração', study.example], ['Validação', study.validation], ['Limitações', study.limits]] as const).map(([label, text]) => <div key={label}><dt className="font-semibold text-cyan-300">{label}</dt><dd className="mt-1 leading-6">{text}</dd></div>)}
-          </dl>
-          <p className="mt-3 text-xs text-slate-400">Projeto desenvolvido com apoio de IA aplicada. Os cenários ilustrativos não representam métricas de uso em produção.</p>
-        </details>
-      </>}
-
-      <a
-        href={project.url}
-        target="_blank"
-        rel="noreferrer"
-        className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-cyan-300 transition group-hover:text-cyan-200"
-      >
-        {project.title === 'Assistente de TI' ? 'Ver apresentação pública' : 'Acessar projeto'}
-        <ArrowUpRight size={15} />
-      </a>
-    </article>
-  );
+function About() {
+  const skills = [{ icon: <Network />, title: 'Suporte e infraestrutura', text: 'Atendimento presencial e remoto, diagnóstico de incidentes, estações, impressoras e conectividade.' }, { icon: <LockKeyhole />, title: 'Sistemas e acessos', text: 'Suporte ao MV SOUL, usuários, perfis, permissões e validação de soluções com os setores.' }, { icon: <Code2 />, title: 'Aplicações web', text: 'Levantamento de necessidades, integrações, desenvolvimento com IA aplicada e revisão antes da publicação.' }];
+  return <section id="sobre" className="section section-divider"><div className="shell about-grid"><div><SectionTitle label="Sobre mim" title="A rotina também ensina a construir." /><p className="body-copy">Minha trajetória passou pelo atendimento hospitalar antes de chegar à equipe de TI. Conhecer os dois lados me ajuda a entender o que o usuário precisa e como um problema técnico afeta a operação.</p><p className="body-copy">Hoje atuo no Hospital Infantil Gonzaga e também presto serviços de suporte nas unidades da Biomega na Baixada Santista. Nos projetos próprios, uso IA como apoio, busco entender as decisões, reviso o código e valido os fluxos.</p><div className="location-line"><MapPin size={17} /> Baixada Santista/SP</div></div><div className="skill-list">{skills.map(s => <div key={s.title}><span aria-hidden="true">{s.icon}</span><div><h3>{s.title}</h3><p>{s.text}</p></div></div>)}</div></div></section>;
 }
-
-function Contact() {
-  return (
-    <section id="contato" className="border-t border-white/5 py-28">
-      <div className="mx-auto max-w-4xl px-5 text-center lg:px-8">
-        <div data-reveal className="reveal">
-          <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-cyan-300">
-            <Mail size={15} />
-            Contato
-          </span>
-
-          <h2 className="mt-5 text-4xl font-bold tracking-tight text-white sm:text-5xl">
-            Vamos conversar?
-          </h2>
-
-          <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-slate-400">
-            Estou aberto a oportunidades, projetos e conexões profissionais
-            na área de tecnologia.
-          </p>
-
-          <div className="mt-9 flex flex-wrap justify-center gap-3">
-            <a
-              href={LINKEDIN_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-xl bg-cyan-400 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-300"
-            >
-              <Linkedin size={17} />
-              LinkedIn
-            </a>
-
-            <a
-              href={GITHUB_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-5 py-3 text-sm font-semibold text-white transition hover:border-cyan-400/30 hover:bg-cyan-400/5"
-            >
-              <Github size={17} />
-              GitHub
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+function Education() {
+  return <section id="formacao" className="section shell"><SectionTitle label="Formação" title="Aprendizado em andamento." />
+    <div className="degree"><GraduationCap size={30} aria-hidden="true" /><div><p className="degree-status">GRADUAÇÃO · EM ANDAMENTO</p><h3>Tecnologia em Análise e Desenvolvimento de Sistemas</h3><p>Anhanguera Educacional</p><p className="degree-period">Janeiro de 2026 · conclusão prevista: julho de 2028</p></div></div>
+    <h3 className="courses-title">Formação complementar</h3><div className="courses">{[{ title: 'Cybersecurity', institution: 'Hackers do Bem', year: '2024' }, { title: 'Administrando Banco de Dados', institution: 'Fundação Bradesco', year: '2026' }, { title: 'Tecnologia da Informação e Comunicação', institution: 'Fundação Bradesco', year: '2024' }, { title: 'Lei Geral de Proteção de Dados (LGPD)', institution: 'Fundação Bradesco', year: '2023' }].map(c => <div key={c.title}><h4>{c.title}</h4><p>{c.institution} · {c.year}</p></div>)}</div>
+  </section>;
 }
-
-function Footer() {
-  return (
-    <footer className="border-t border-white/5">
-      <div className="mx-auto flex max-w-6xl flex-col gap-4 px-5 py-8 sm:flex-row sm:items-center sm:justify-between lg:px-8">
-        <div>
-          <p className="text-sm font-semibold text-white">
-            João Vitor
-          </p>
-
-          <p className="mt-1 text-xs text-slate-600">
-            Profissional de TI • Suporte • Infraestrutura • Análise de Sistemas
-          </p>
-        </div>
-
-        <div className="flex items-center gap-4">
-          <SocialLinks />
-
-          <span className="hidden h-5 w-px bg-white/10 sm:block" />
-
-          <p className="text-xs text-slate-600">
-            created for: Costa-Dias
-          </p>
-        </div>
-      </div>
-    </footer>
-  );
+function Career() {
+  return <section id="trajetoria" className="section section-divider"><div className="shell"><SectionTitle label="Trajetória" title="Do atendimento ao suporte de TI." text="Atuações atuais em destaque, seguidas das experiências anteriores que contribuíram para essa evolução." /><ol className="timeline">{experiences.map(e => <li key={e.role + e.company} className={e.current ? 'current' : ''}><div className="experience-date"><span>{e.period}</span>{e.current && <span className="current-badge">Atuação atual</span>}</div><div><p className="experience-type">{e.type}</p><h3>{e.role}</h3><p className="company">{e.company}</p><p>{e.description}</p></div></li>)}</ol></div></section>;
 }
-
+function Contact() { return <section id="contato" className="section shell"><div className="contact-panel"><div><p className="eyebrow">Contato</p><h2>Vamos conversar?</h2><p>Estou aberto a oportunidades em suporte de TI, sistemas e infraestrutura, além de conexões e projetos em tecnologia.</p><span className="contact-location"><MapPin size={15} /> Baixada Santista/SP</span></div><div className="contact-actions"><External href={LINKEDIN} className="action primary"><Linkedin size={18} /> Falar pelo LinkedIn</External><External href={GITHUB} className="action secondary"><Github size={18} /> Conferir meus projetos</External><p>Conheça meu perfil profissional ou explore o código e a documentação dos projetos públicos.</p></div></div></section>; }
+function App() { return <div className="portfolio-root"><a className="skip-link" href="#conteudo">Pular para o conteúdo</a><Header /><main id="conteudo"><Hero /><Projects /><About /><Education /><Career /><Contact /></main><footer className="shell site-footer"><a className="wordmark" href="#inicio">João Vitor<span>.</span></a><p>Suporte de TI · Sistemas · Aplicações web</p><div><External href={GITHUB}><Github size={16} /> GitHub</External><External href={LINKEDIN}><Linkedin size={16} /> LinkedIn</External></div></footer></div>; }
 export default App;
