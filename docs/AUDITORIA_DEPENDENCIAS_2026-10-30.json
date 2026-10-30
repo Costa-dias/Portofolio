@@ -1,0 +1,78 @@
+{
+  "reviewedAt": "2026-10-30",
+  "scope": "Eight portfolio websites; ULTRON excluded",
+  "npm": {
+    "portfolio": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0,
+      "total": 0
+    },
+    "turno": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0,
+      "total": 0
+    },
+    "dashboard": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0,
+      "total": 0
+    },
+    "honey": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0,
+      "total": 0
+    },
+    "assist": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0,
+      "total": 0
+    },
+    "fraud": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0,
+      "total": 0
+    }
+  },
+  "bun": {
+    "radar": {
+      "advisories": 0
+    }
+  },
+  "yarn": {
+    "imoveis": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0
+    }
+  },
+  "python": {
+    "fraud": {
+      "packages": 23,
+      "advisories": 0
+    },
+    "imoveis": {
+      "packages": 44,
+      "advisories": 0
+    }
+  }
+}

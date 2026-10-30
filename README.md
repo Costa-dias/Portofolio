@@ -1,6 +1,6 @@
 # Portfólio — João Vitor
 
-**Versão 2.0.0 · atualizado em 30/10/2026**
+**Versão 2.0.1 · atualizado em 30/10/2026**
 
 Reformulação da apresentação, navegação e identidade visual, com estudos de caso e demonstrações interativas dos projetos.
 
@@ -31,3 +31,6 @@ npm run build
 ```
 
 O deploy estático gera `dist/`. Configuração dos headers de produção está em `render.yaml`; a existência dessa configuração não comprova os headers da versão atualmente publicada.
+
+
+[Relatório detalhado da manutenção](docs/ATUALIZACOES_2026-10-30.md).
