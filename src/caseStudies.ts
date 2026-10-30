@@ -3,9 +3,9 @@ export const CASE_STUDIES: Record<string, { repo?: string; origin: string; probl
     repo: 'projeto-web-ti-apresentacao',
     origin: 'Nasceu de uma necessidade da minha rotina de suporte: consultar registros técnicos anteriores e relembrar procedimentos. O primeiro mecanismo usava uma planilha e o Claude; depois evoluiu para uma aplicação web independente com integração ao Gemini.',
     problem: 'Encontrar atendimentos anteriores e reunir consultas e apoio de IA em um único ambiente de uso pessoal.',
-    decisions: 'React e TypeScript no frontend; Node.js e Express no backend, com autenticação Google, integração com planilha e consulta opcional ao Gemini. A aplicação também acompanha o consumo de tokens.',
+    decisions: 'React e TypeScript no frontend; Node.js e Express no backend, com autenticação Google, integração com planilha e consulta opcional ao Gemini. Também permite registrar e continuar ordens de serviço, consultar recorrências por local e acompanhar tokens. Dados são revisados antes da consulta à IA.',
     example: 'Em um cenário fictício, uma busca por problema de impressão ajuda a localizar registros anteriores; a consulta à IA é opcional.',
-    validation: 'O desenvolvimento contou com apoio de IA, revisão do código e validação das alterações antes de produção.',
+    validation: 'O desenvolvimento contou com apoio de IA, revisão e testes. A revisão mais recente corrigiu datas e filtros e tornou explícitas as limitações de registros incompletos.',
     limits: 'Aplicação e registros são privados. A apresentação pública não disponibiliza código-fonte, dados ou acesso ao sistema.',
   },
   'HUB — Radar de Golpes': {
@@ -27,9 +27,9 @@ export const CASE_STUDIES: Record<string, { repo?: string; origin: string; probl
   },
   'Vitrine Imobiliária': {
     repo: 'Corretor-de-imoveis-vitrine',
-    origin: 'Criada para explorar uma apresentação web de imóveis. A versão pública atual funciona como vitrine genérica demonstrativa.',
+    origin: 'Criada para explorar uma apresentação web de imóveis. A versão pública preserva o layout original e suas fotografias como vitrine demonstrativa.',
     problem: 'Organizar informações de imóveis para consulta e divulgação em uma interface web.',
-    decisions: 'A vitrine usa exemplos fictícios e imagens locais, sem depender do banco de anúncios nem exibir contatos de corretor.',
+    decisions: 'A vitrine mantém a composição visual original, com fotografias locais e exemplos fictícios. Funciona sem consultar o cadastro de produção ou exibir contatos de corretor.',
     example: 'Em um cenário fictício, uma pessoa filtra por venda ou aluguel e abre a ficha do imóvel.',
     validation: 'A aplicação pública oferece busca, filtro de finalidade e detalhes; os dados são exclusivamente demonstrativos.',
     limits: 'O repositório público apresenta a vitrine do projeto; a demonstração não acessa cadastros reais.',
