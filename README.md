@@ -1,5 +1,11 @@
 # Portfólio — João Vitor
 
+**Versão 2.0.0 · atualizado em 30/10/2026**
+
+Reformulação da apresentação, navegação e identidade visual, com estudos de caso e demonstrações interativas dos projetos.
+
+[Histórico e critérios da versão](RELEASES.md).
+
 Site pessoal em React/TypeScript, Vite e Tailwind CSS para apresentar trajetória em TI e projetos de desenvolvimento com IA aplicada.
 
 - [Portfólio](https://portfolio-qrb3.onrender.com/)
