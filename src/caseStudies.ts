@@ -25,13 +25,13 @@ export const CASE_STUDIES: Record<string, { repo?: string; origin: string; probl
     validation: 'Testes locais cobrem o formulário de orçamento e o cálculo do subtotal com dados fictícios.',
     limits: 'O formulário não reserva estoque nem confirma pagamento. Frete, disponibilidade e adicionais dependem da confirmação da loja.',
   },
-  'Plataforma para Corretor de Imóveis': {
+  'Vitrine Imobiliária': {
     repo: 'Corretor-de-imoveis-vitrine',
-    origin: 'Criada para explorar uma apresentação web de imóveis e facilitar o contato de pessoas interessadas.',
+    origin: 'Criada para explorar uma apresentação web de imóveis. A versão pública atual funciona como vitrine genérica demonstrativa.',
     problem: 'Organizar informações de imóveis para consulta e divulgação em uma interface web.',
-    decisions: 'A proposta reúne uma vitrine de imóveis e informações de contato em uma experiência voltada à navegação.',
-    example: 'Em um cenário fictício, uma pessoa consulta um imóvel e encontra um meio de entrar em contato.',
-    validation: 'A apresentação pública descreve o projeto; a demonstração do portfólio é ilustrativa.',
+    decisions: 'A vitrine usa exemplos fictícios e imagens locais, sem depender do banco de anúncios nem exibir contatos de corretor.',
+    example: 'Em um cenário fictício, uma pessoa filtra por venda ou aluguel e abre a ficha do imóvel.',
+    validation: 'A aplicação pública oferece busca, filtro de finalidade e detalhes; os dados são exclusivamente demonstrativos.',
     limits: 'O repositório público apresenta a vitrine do projeto; a demonstração não acessa cadastros reais.',
   },
   'TurnoExtra': {
