@@ -41,6 +41,6 @@ Auditoria npm completa: 11 avisos moderados por projeto (10 no Assistente), cont
 
 GitHub não retornou workflow runs associados aos commits na consulta desta execução. Não se declara sucesso dos checks remotos.
 
-A atualização no GitHub foi concluída. Deploy é uma etapa separada: a comparação inicial dos assets públicos coincidiu com o build novo em FraudLens, Portfólio, Dashboard e TurnoExtra. Honey Bee, Corretor, Radar e Assistente exigem conferência adicional para confirmar publicação. O Render não possui workspace selecionado na conexão; nenhuma configuração de workspace foi modificada. HTTP 200 isolado não confirma uma versão.
+A atualização no GitHub foi concluída. Deploy é uma etapa separada: a comparação inicial dos assets públicos coincidiu com o build novo em FraudLens, Portfólio, Dashboard e TurnoExtra. Honey Bee também foi confirmado pela versão 2.0.2 e data 31/10/2026 no bundle público (o hash difere por configuração de build). Corretor, Radar e Assistente exigem conferência adicional para confirmar publicação. O Render não possui workspace selecionado na conexão; nenhuma configuração de workspace foi modificada. HTTP 200 isolado não confirma uma versão.
 
 Os relatórios específicos estão em docs/SECURITY_REVIEW_2026-10-31.md de cada repositório.
