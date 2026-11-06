@@ -3,7 +3,7 @@ export const CASE_STUDIES: Record<string, { repo?: string; origin: string; probl
     repo: 'projeto-web-ti-apresentacao',
     origin: 'Nasceu de uma necessidade da minha rotina de suporte: consultar registros técnicos anteriores e relembrar procedimentos. O primeiro mecanismo usava uma planilha e o Claude; depois evoluiu para uma aplicação web independente com integração ao Gemini.',
     problem: 'Encontrar atendimentos anteriores e reunir consultas e apoio de IA em um único ambiente de uso pessoal.',
-    decisions: 'React e TypeScript no frontend; Node.js e Express no backend, com autenticação Google, integração com planilha e consulta opcional ao Gemini. Também permite registrar e continuar ordens de serviço, consultar recorrências por local e acompanhar tokens. Dados são revisados antes da consulta à IA.',
+    decisions: 'React e TypeScript no frontend; Node.js e Express no backend, com autenticação Google, integração com planilha e consulta opcional ao Gemini. Também permite registrar e continuar ordens de serviço na OS Geral, consultar recorrências por local, acompanhar indicadores e organizar uma Base de Conhecimento sincronizada na mesma planilha. Dados são revisados antes da consulta à IA.',
     example: 'Em um cenário fictício, uma busca por problema de impressão ajuda a localizar registros anteriores; a consulta à IA é opcional.',
     validation: 'O desenvolvimento contou com apoio de IA, revisão e testes. A revisão mais recente corrigiu datas e filtros e tornou explícitas as limitações de registros incompletos.',
     limits: 'Aplicação e registros são privados. A apresentação pública não disponibiliza código-fonte, dados ou acesso ao sistema.',
