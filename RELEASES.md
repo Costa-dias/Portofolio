@@ -1,3 +1,9 @@
+## 2.1.0 — 07/11/2026
+
+- Adiciona seção Currículo e download de PDF público, sem telefone ou seção de objetivo profissional.
+- Contato público por e-mail.
+- Atualiza a captura do FraudLens para 1.4.2.
+
 ## 2.0.4 — 07/11/2026
 
 - Substitui a ilustração do Assistente por captura da interface original.
