@@ -4,6 +4,7 @@ import { ArrowDown, ArrowUpRight, Download, Mail, BriefcaseBusiness, CalendarDay
 import { ProjectBehindScenes } from './ProjectBehindScenes';
 import { TurnoBehindScenes } from './TurnoBehindScenes';
 import { CASE_STUDIES } from './caseStudies';
+import { PROJECT_PRESENTATION } from './projectPresentation';
 
 const GITHUB = 'https://github.com/Costa-dias';
 const LINKEDIN = 'https://www.linkedin.com/in/joao-vitor-tec/';
@@ -48,12 +49,12 @@ const evidence: Record<string, Evidence> = {
 };
 type Experience = { period: string; role: string; company: string; description: string; current?: boolean; type: string; };
 const experiences: Experience[] = [
-  { period: 'nov/2025 — atual', role: 'Auxiliar de Suporte de TI', company: 'Plano Santa Saúde · Hospital Infantil Gonzaga', type: 'Tempo integral · Santos/SP', current: true, description: 'Suporte N1/N2 presencial e remoto, diagnóstico de incidentes, hardware, software, redes e periféricos. Suporte ao ERP hospitalar MV SOUL, administração de usuários, perfis e permissões, apoio a cadastros e vínculos e validação das soluções com os setores.' },
-  { period: 'set/2026 — atual', role: 'Suporte técnico · prestação de serviços', company: 'Atendimento às unidades da Biomega Medicina Diagnóstica', type: 'Freelance · Baixada Santista', current: true, description: 'Suporte em infraestrutura nas unidades: instalação e configuração de impressoras de rede e locais, mapeamento de unidades de rede, adequação da infraestrutura local e instalação, configuração e manutenção do sistema proprietário Biomega nas estações de trabalho.' },
+  { period: 'nov/2025 — atual', role: 'Auxiliar Técnico de Informática', company: 'Plano Santa Saúde · Hospital Infantil Gonzaga', type: 'Tempo integral · Santos/SP', current: true, description: 'Suporte N1/N2 presencial e remoto, diagnóstico de incidentes, hardware, software, redes e periféricos. Suporte ao ERP hospitalar MV SOUL, administração de usuários, perfis e permissões, apoio a cadastros e vínculos e validação das soluções com os setores.' },
+  { period: 'set/2026 — atual', role: 'Suporte técnico · prestação de serviços', company: 'Atendimento às unidades da Biomega Medicina Diagnóstica', type: 'Autônomo · Baixada Santista', current: true, description: 'Suporte em infraestrutura nas unidades: instalação e configuração de impressoras de rede e locais, mapeamento de unidades de rede, adequação da infraestrutura local e instalação, configuração e manutenção do sistema proprietário Biomega nas estações de trabalho.' },
   { period: 'mai/2022 — nov/2025', role: 'Auxiliar de Atendimento Pleno', company: 'Associação Santa Saúde', type: 'Atendimento e rotinas administrativas', description: 'Atendimento e apoio de primeiro nível aos sistemas hospitalares na recepção, com identificação e encaminhamento de problemas técnicos recorrentes à equipe de TI.' },
-  { period: 'jan/2024', role: 'Assistente de suporte de TI', company: 'BenTech', type: 'Autônomo · Praia Grande/SP', description: 'Suporte técnico, manutenção de sistemas e atendimento interno.' },
-  { period: 'fev/2019 — mai/2022', role: 'Atendente de recepção', company: 'Santa Casa de Santos', type: 'Tempo integral', description: 'Atendimento administrativo, laboratorial e de pronto-socorro, com uso de sistemas hospitalares e apoio à rotina interna.' },
-  { period: 'jan/2017 — mar/2018', role: 'Auxiliar de Atendimento Interno e Externo', company: 'Exército Brasileiro · FUSEX', type: 'Experiência profissional', description: 'Apoio à área de computação e ao agendamento de serviços, desenvolvendo organização, disciplina e responsabilidade.' },
+  { period: 'jan/2024 — fev/2024', role: 'Assistente de suporte de TI', company: 'BenTech', type: 'Autônomo · Praia Grande/SP', description: 'Suporte técnico, manutenção de sistemas e atendimento interno.' },
+  { period: 'fev/2021 — mai/2022', role: 'Atendente de recepção', company: 'Santa Casa de Santos', type: 'Tempo integral', description: 'Atendimento administrativo, laboratorial e de pronto-socorro, com uso de sistemas hospitalares e apoio à rotina interna.' },
+  { period: 'jan/2017 — mar/2018', role: 'Auxiliar de Atendimento Interno e Externo', company: 'Exército Brasileiro · FUSEX', type: 'Experiência profissional', description: 'Atendimento, agendamentos e organização de informações e rotinas administrativas, desenvolvendo disciplina e responsabilidade.' },
 ];
 function External({ href, children, className = '' }: { href: string; children: ReactNode; className?: string }) {
   return <a href={href} target="_blank" rel="noopener noreferrer" className={className}>{children}<ArrowUpRight size={15} aria-hidden="true" /><span className="sr-only"> (abre em nova aba)</span></a>;
@@ -84,6 +85,11 @@ function CaseStudy({ title }: { title: string }) {
   const s = CASE_STUDIES[title]; if (!s) return null;
   return <details className="case-study"><summary>Criação, decisões e limites <span aria-hidden="true">+</span></summary><dl>{([['Criação e evolução', s.origin], ['Decisões técnicas', s.decisions], ['Cenário ilustrativo', s.example], ['Validação', s.validation], ['Limitações', s.limits]] as const).map(([label, text]) => <div key={label}><dt>{label}</dt><dd>{text}</dd></div>)}</dl></details>;
 }
+function ProjectPresentation({ title }: { title: string }) {
+  const item = PROJECT_PRESENTATION[title];
+  if (!item) return null;
+  return <dl className="project-presentation">{[['O problema', item.problem], ['Minha participação', item.participation], ['Decisão principal', item.decision], ['O que você pode conferir', item.evidence]].map(([label, text]) => <div key={label}><dt>{label}</dt><dd>{text}</dd></div>)}</dl>;
+}
 function FeaturedProject({ project, index }: { project: Project; index: number }) {
   const ev = evidence[project.id];
   return <article id={project.id} className="featured-project" aria-labelledby={`${project.id}-title`}>
@@ -91,7 +97,7 @@ function FeaturedProject({ project, index }: { project: Project; index: number }
       <div className="project-actions">{project.id === 'turnoextra' ? <TurnoBehindScenes /> : <ProjectBehindScenes project={project.title} />}<External className="text-link" href={project.url}>{project.id === 'assistente-ti' ? 'Ver apresentação pública' : 'Abrir aplicação'}</External></div>
     </div>
     <div className="project-evidence">{<figure className="project-capture"><a href={project.id === 'turnoextra' ? '/projects/turnoextra.jpg' : project.id === 'fraudlens' ? '/projects/fraudlens-1.4.2.jpg' : '/projects/assistente-interface-original.jpg'} target="_blank" rel="noopener noreferrer"><img src={project.id === 'turnoextra' ? '/projects/turnoextra.jpg' : project.id === 'fraudlens' ? '/projects/fraudlens-1.4.2.jpg' : '/projects/assistente-interface-original.jpg'} alt={project.id === 'turnoextra' ? 'Página pública do TurnoExtra' : project.id === 'fraudlens' ? 'FraudLens 1.4.2: painel de análise com mais contraste e faixa do Radar acima do cabeçalho' : 'Interface original do Assistente de TI: formulário sem dados pessoais ou relatos de atendimentos'} loading="lazy" decoding="async" width="1348" height="926" /></a><figcaption>{project.id === 'turnoextra' ? 'Página pública do aplicativo' : project.id === 'fraudlens' ? 'FraudLens 1.4.2 · captura da página pública' : 'Interface original · formulário sem dados pessoais ou relatos de atendimentos'} · {project.id === 'turnoextra' ? 'captura de 28/10/2026' : '07/11/2026'}</figcaption></figure>}<div className="project-flow" aria-label="Fluxo do projeto">{ev.flow.map((s, i) => <span key={s}><small>0{i + 1}</small>{s}{i < ev.flow.length - 1 && <ChevronRight size={14} aria-hidden="true" />}</span>)}</div>
-      <div className="project-story"><div><h4>O problema</h4><p>{ev.problem}</p></div><div><h4>O que construí</h4><p>{ev.solution}</p></div></div>
+      <ProjectPresentation title={project.title} />
       <div className="evidence-block"><h4><Check size={15} aria-hidden="true" /> Evidências para conferir</h4><p>{ev.verification}</p><div className="evidence-links">{ev.links.map(l => <External href={l.href} key={l.href}>{l.label}</External>)}{ev.post && <External href={ev.post}>Publicação no LinkedIn</External>}</div></div>
       <CaseStudy title={project.title} />
     </div>
@@ -100,7 +106,7 @@ function FeaturedProject({ project, index }: { project: Project; index: number }
 function Projects() {
   return <section id="projetos" className="section shell"><SectionTitle label="Projetos em foco" title="Problemas reais. Soluções em evolução." text="Três projetos que conectam minha rotina, meus estudos e a aplicação prática de tecnologia. Explore a origem, as decisões e os limites de cada um." />
     <div className="featured-list">{featured.map((p, i) => <FeaturedProject project={p} index={i} key={p.id} />)}</div>
-    <div className="complementary"><div className="complementary-heading"><h3>Projetos complementares</h3><p>Outras aplicações que desenvolvi para explorar necessidades diferentes.</p></div><div className="complementary-grid">{complementary.map(p => <article id={p.id} className="small-project" key={p.id}><div className="small-project-heading"><span aria-hidden="true">{p.icon}</span><span>{p.category}</span></div><h4>{p.title}</h4><p>{p.description}</p><ul className="tags">{p.tags.map(t => <li key={t}>{t}</li>)}</ul><ProjectBehindScenes project={p.title} /><CaseStudy title={p.title} /><div className="small-project-links"><External href={p.url}>Abrir projeto</External>{CASE_STUDIES[p.title]?.repo && <External href={`${GITHUB}/${CASE_STUDIES[p.title].repo}`}>{p.id === 'corretor-imoveis' ? 'Apresentação' : 'Código'}</External>}</div></article>)}</div></div>
+    <div className="complementary"><div className="complementary-heading"><h3>Projetos complementares</h3><p>Outras aplicações que desenvolvi para explorar necessidades diferentes.</p></div><div className="complementary-grid">{complementary.map(p => <article id={p.id} className="small-project" key={p.id}><div className="small-project-heading"><span aria-hidden="true">{p.icon}</span><span>{p.category}</span></div><h4>{p.title}</h4><p>{p.description}</p><ul className="tags">{p.tags.map(t => <li key={t}>{t}</li>)}</ul><ProjectPresentation title={p.title} /><ProjectBehindScenes project={p.title} /><CaseStudy title={p.title} /><div className="small-project-links"><External href={p.url}>Abrir projeto</External>{CASE_STUDIES[p.title]?.repo && <External href={`${GITHUB}/${CASE_STUDIES[p.title].repo}`}>{p.id === 'corretor-imoveis' ? 'Apresentação' : 'Código'}</External>}</div></article>)}</div></div>
   </section>;
 }
 function About() {

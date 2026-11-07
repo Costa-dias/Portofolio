@@ -1,3 +1,10 @@
+## 2.1.1 — 07/11/2026
+
+- Padroniza Assistente, FraudLens, TurnoExtra, Dashboard e HUB: problema, participação, decisão e evidências.
+- Explicita o apoio de IA e preserva informações privadas.
+- Alinha cargo e períodos da trajetória ao currículo público.
+- Mantém Honey Bee, Corretor e ULTRON fora desta revisão.
+
 ## 2.1.0 — 07/11/2026
 
 - Adiciona seção Currículo e download de PDF público, sem telefone ou seção de objetivo profissional.

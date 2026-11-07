@@ -1,3 +1,3 @@
-export const APP_VERSION = "2.1.0";
+export const APP_VERSION = "2.1.1";
 export const RELEASE_DATE = "07/11/2026";
-export const RELEASE_NOTES = "Currículo público em PDF com contato por e-mail e captura atual do FraudLens.";
+export const RELEASE_NOTES = "Apresentação padronizada dos projetos e trajetória alinhada ao currículo.";
