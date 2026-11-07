@@ -1,3 +1,8 @@
+## 2.0.4 — 07/11/2026
+
+- Substitui a ilustração do Assistente por captura da interface original.
+- Enquadramento exclui contato da conta e relatos de OS; não altera o aplicativo.
+
 # Atualização 2.0.3 — 06/11/2026
 
 Apresentação do Assistente atualizada com ilustração de dados fictícios.
