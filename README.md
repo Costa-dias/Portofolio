@@ -1,6 +1,18 @@
 # Portfólio — João Vitor
 
-**Versão 2.0.3 · atualizado em 06/11/2026**
+**Versão 2.1.1 · atualizado em 07/11/2026**
+
+## Recursos da versão atual
+
+Portfólio profissional com apresentação padronizada dos projetos, capturas reais e currículo público em PDF.
+
+- Assistente, FraudLens, TurnoExtra, Dashboard e HUB apresentam problema, participação, decisão principal e evidências.
+- O currículo público usa apenas e-mail de contato e não contém telefone nem seção de objetivo profissional.
+- O Assistente é mostrado por captura de formulário sem dados pessoais ou relatos de OS. A aplicação e seus registros permanecem privados.
+
+### Minha participação
+
+Projeto autoral desenvolvido com apoio de inteligência artificial. Minha participação inclui definir necessidades e fluxos, revisar as implementações, testar o funcionamento e orientar melhorias. As evidências e limitações estão descritas no projeto e no portfólio.
 
 Reformulação da apresentação, navegação e identidade visual, com estudos de caso e demonstrações interativas dos projetos.
 
